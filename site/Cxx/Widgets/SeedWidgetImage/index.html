@@ -65,123 +65,129 @@ function registerListener(event, func) {
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPointHandleRepresentation2D.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataMapper.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkProperty2D.h&gt;</span><span class=cp></span>
-</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindow.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindowInteractor.h&gt;</span><span class=cp></span>
-</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSeedWidget.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSeedRepresentation.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSeedWidget.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSphereSource.h&gt;</span><span class=cp></span>
 </span>
 <span class=hll><span class=k>class</span> <span class=nc>vtkSeedImageCallback</span> <span class=o>:</span> <span class=k>public</span> <span class=n>vtkCommand</span>
 </span><span class=p>{</span>
-  <span class=k>public</span><span class=o>:</span>
-<span class=hll>    <span class=k>static</span> <span class=n>vtkSeedImageCallback</span> <span class=o>*</span><span class=n>New</span><span class=p>()</span>
-</span>    <span class=p>{</span>
-<span class=hll>      <span class=k>return</span> <span class=k>new</span> <span class=n>vtkSeedImageCallback</span><span class=p>;</span>
-</span>    <span class=p>}</span>
+<span class=k>public</span><span class=o>:</span>
+<span class=hll>  <span class=k>static</span> <span class=n>vtkSeedImageCallback</span><span class=o>*</span> <span class=n>New</span><span class=p>()</span>
+</span>  <span class=p>{</span>
+<span class=hll>    <span class=k>return</span> <span class=k>new</span> <span class=n>vtkSeedImageCallback</span><span class=p>;</span>
+</span>  <span class=p>}</span>
 
-<span class=hll>    <span class=n>vtkSeedImageCallback</span><span class=p>()</span> <span class=p>{}</span>
+<span class=hll>  <span class=n>vtkSeedImageCallback</span><span class=p>()</span> <span class=o>=</span> <span class=k>default</span><span class=p>;</span>
 </span>
-<span class=hll>    <span class=k>virtual</span> <span class=kt>void</span> <span class=n>Execute</span><span class=p>(</span><span class=n>vtkObject</span><span class=o>*</span><span class=p>,</span> <span class=kt>unsigned</span> <span class=kt>long</span> <span class=n>event</span><span class=p>,</span> <span class=kt>void</span> <span class=o>*</span><span class=n>calldata</span><span class=p>)</span>
+<span class=hll>  <span class=k>virtual</span> <span class=kt>void</span> <span class=nf>Execute</span><span class=p>(</span><span class=n>vtkObject</span><span class=o>*</span><span class=p>,</span> <span class=kt>unsigned</span> <span class=kt>long</span> <span class=n>event</span><span class=p>,</span> <span class=kt>void</span><span class=o>*</span> <span class=n>calldata</span><span class=p>)</span>
+</span>  <span class=p>{</span>
+<span class=hll>    <span class=k>if</span> <span class=p>(</span><span class=n>event</span> <span class=o>==</span> <span class=n>vtkCommand</span><span class=o>::</span><span class=n>PlacePointEvent</span><span class=p>)</span>
 </span>    <span class=p>{</span>
-<span class=hll>      <span class=k>if</span> <span class=p>(</span><span class=n>event</span> <span class=o>==</span> <span class=n>vtkCommand</span><span class=o>::</span><span class=n>PlacePointEvent</span><span class=p>)</span>
-</span>        <span class=p>{</span>
-    <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Placing point...&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
-    <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;There are now &quot;</span> <span class=o>&lt;&lt;</span> <span class=k>this</span><span class=o>-&gt;</span><span class=n>SeedRepresentation</span><span class=o>-&gt;</span><span class=n>GetNumberOfSeeds</span><span class=p>()</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; seeds.&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
-    <span class=k>for</span><span class=p>(</span><span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>seedId</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span><span class=p>(</span><span class=n>seedId</span><span class=p>)</span> <span class=o>&lt;</span> <span class=k>this</span><span class=o>-&gt;</span><span class=n>SeedRepresentation</span><span class=o>-&gt;</span><span class=n>GetNumberOfSeeds</span><span class=p>();</span> <span class=n>seedId</span><span class=o>++</span><span class=p>)</span>
+      <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Placing point...&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+      <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;There are now &quot;</span>
+                <span class=o>&lt;&lt;</span> <span class=k>this</span><span class=o>-&gt;</span><span class=n>SeedRepresentation</span><span class=o>-&gt;</span><span class=n>GetNumberOfSeeds</span><span class=p>()</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; seeds.&quot;</span>
+                <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+      <span class=k>for</span> <span class=p>(</span><span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>seedId</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span><span class=p>(</span><span class=n>seedId</span><span class=p>)</span> <span class=o>&lt;</span>
+           <span class=k>this</span><span class=o>-&gt;</span><span class=n>SeedRepresentation</span><span class=o>-&gt;</span><span class=n>GetNumberOfSeeds</span><span class=p>();</span>
+           <span class=n>seedId</span><span class=o>++</span><span class=p>)</span>
       <span class=p>{</span>
-      <span class=kt>double</span> <span class=n>pos</span><span class=p>[</span><span class=mi>3</span><span class=p>];</span>
-      <span class=k>this</span><span class=o>-&gt;</span><span class=n>SeedRepresentation</span><span class=o>-&gt;</span><span class=n>GetSeedDisplayPosition</span><span class=p>(</span><span class=n>seedId</span><span class=p>,</span> <span class=n>pos</span><span class=p>);</span>
-      <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Seed &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>seedId</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; : (&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>pos</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>pos</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>pos</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;)&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+        <span class=kt>double</span> <span class=n>pos</span><span class=p>[</span><span class=mi>3</span><span class=p>];</span>
+        <span class=k>this</span><span class=o>-&gt;</span><span class=n>SeedRepresentation</span><span class=o>-&gt;</span><span class=n>GetSeedDisplayPosition</span><span class=p>(</span><span class=n>seedId</span><span class=p>,</span> <span class=n>pos</span><span class=p>);</span>
+        <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Seed &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>seedId</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; : (&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>pos</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>pos</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+                  <span class=o>&lt;&lt;</span> <span class=s>&quot; &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>pos</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;)&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
       <span class=p>}</span>
-    <span class=k>return</span><span class=p>;</span>
-        <span class=p>}</span>
-<span class=hll>      <span class=k>if</span> <span class=p>(</span><span class=n>event</span> <span class=o>==</span> <span class=n>vtkCommand</span><span class=o>::</span><span class=n>InteractionEvent</span><span class=p>)</span>
-</span>        <span class=p>{</span>
-    <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Interaction...&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
-        <span class=k>if</span> <span class=p>(</span><span class=n>calldata</span><span class=p>)</span>
-          <span class=p>{</span>
-      <span class=kt>double</span> <span class=n>pos</span><span class=p>[</span><span class=mi>3</span><span class=p>];</span>
-      <span class=k>this</span><span class=o>-&gt;</span><span class=n>SeedRepresentation</span><span class=o>-&gt;</span><span class=n>GetSeedDisplayPosition</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>pos</span><span class=p>);</span>
-      <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Moved to (&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>pos</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>pos</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>pos</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;)&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
-          <span class=p>}</span>
-    <span class=k>return</span><span class=p>;</span>
-        <span class=p>}</span>
+      <span class=k>return</span><span class=p>;</span>
     <span class=p>}</span>
-
-<span class=hll>    <span class=kt>void</span> <span class=n>SetRepresentation</span><span class=p>(</span><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSeedRepresentation</span><span class=o>&gt;</span> <span class=n>rep</span><span class=p>)</span>
+<span class=hll>    <span class=k>if</span> <span class=p>(</span><span class=n>event</span> <span class=o>==</span> <span class=n>vtkCommand</span><span class=o>::</span><span class=n>InteractionEvent</span><span class=p>)</span>
 </span>    <span class=p>{</span>
-      <span class=k>this</span><span class=o>-&gt;</span><span class=n>SeedRepresentation</span> <span class=o>=</span> <span class=n>rep</span><span class=p>;</span>
+      <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Interaction...&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+      <span class=k>if</span> <span class=p>(</span><span class=n>calldata</span><span class=p>)</span>
+      <span class=p>{</span>
+        <span class=kt>double</span> <span class=n>pos</span><span class=p>[</span><span class=mi>3</span><span class=p>];</span>
+        <span class=k>this</span><span class=o>-&gt;</span><span class=n>SeedRepresentation</span><span class=o>-&gt;</span><span class=n>GetSeedDisplayPosition</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>pos</span><span class=p>);</span>
+        <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Moved to (&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>pos</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>pos</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>pos</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span>
+                  <span class=o>&lt;&lt;</span> <span class=s>&quot;)&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+      <span class=p>}</span>
+      <span class=k>return</span><span class=p>;</span>
     <span class=p>}</span>
-<span class=hll>    <span class=kt>void</span> <span class=n>SetWidget</span><span class=p>(</span><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSeedWidget</span><span class=o>&gt;</span> <span class=n>widget</span><span class=p>)</span>
-</span>    <span class=p>{</span>
-      <span class=k>this</span><span class=o>-&gt;</span><span class=n>SeedWidget</span> <span class=o>=</span> <span class=n>widget</span><span class=p>;</span>
-    <span class=p>}</span>
+  <span class=p>}</span>
 
-  <span class=k>private</span><span class=o>:</span>
-<span class=hll>    <span class=n>vtkSeedRepresentation</span><span class=o>*</span> <span class=n>SeedRepresentation</span><span class=p>;</span>
-</span><span class=hll>    <span class=n>vtkSeedWidget</span><span class=o>*</span> <span class=n>SeedWidget</span><span class=p>;</span>
+<span class=hll>  <span class=kt>void</span> <span class=nf>SetRepresentation</span><span class=p>(</span><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSeedRepresentation</span><span class=o>&gt;</span> <span class=n>rep</span><span class=p>)</span>
+</span>  <span class=p>{</span>
+    <span class=k>this</span><span class=o>-&gt;</span><span class=n>SeedRepresentation</span> <span class=o>=</span> <span class=n>rep</span><span class=p>;</span>
+  <span class=p>}</span>
+<span class=hll>  <span class=kt>void</span> <span class=nf>SetWidget</span><span class=p>(</span><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSeedWidget</span><span class=o>&gt;</span> <span class=n>widget</span><span class=p>)</span>
+</span>  <span class=p>{</span>
+    <span class=k>this</span><span class=o>-&gt;</span><span class=n>SeedWidget</span> <span class=o>=</span> <span class=n>widget</span><span class=p>;</span>
+  <span class=p>}</span>
+
+<span class=k>private</span><span class=o>:</span>
+<span class=hll>  <span class=n>vtkSeedRepresentation</span><span class=o>*</span> <span class=n>SeedRepresentation</span> <span class=o>=</span> <span class=k>nullptr</span><span class=p>;</span>
+</span><span class=hll>  <span class=n>vtkSeedWidget</span><span class=o>*</span> <span class=n>SeedWidget</span> <span class=o>=</span> <span class=k>nullptr</span><span class=p>;</span>
 </span><span class=p>};</span>
 
-<span class=kt>int</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span> <span class=cm>/* argc */</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span> <span class=cm>/* argv */</span> <span class=p>[])</span>
+<span class=kt>int</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span> <span class=cm>/* argc */</span><span class=p>,</span> <span class=kt>char</span><span class=o>*</span> <span class=cm>/* argv */</span><span class=p>[])</span>
 <span class=p>{</span>
   <span class=c1>// Create an image</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageCanvasSource2D</span><span class=o>&gt;</span> <span class=n>drawing</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageCanvasSource2D</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>drawing</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageCanvasSource2D</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>drawing</span><span class=o>-&gt;</span><span class=n>SetScalarTypeToUnsignedChar</span><span class=p>();</span>
   <span class=n>drawing</span><span class=o>-&gt;</span><span class=n>SetNumberOfScalarComponents</span><span class=p>(</span><span class=mi>3</span><span class=p>);</span>
   <span class=n>drawing</span><span class=o>-&gt;</span><span class=n>SetExtent</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>20</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>50</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
   <span class=c1>// Make a blue background</span>
   <span class=n>drawing</span><span class=o>-&gt;</span><span class=n>SetDrawColor</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>255</span><span class=p>);</span>
-  <span class=n>drawing</span><span class=o>-&gt;</span><span class=n>FillBox</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>20</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>50</span><span class=p>);</span>
+  <span class=n>drawing</span><span class=o>-&gt;</span><span class=n>FillBox</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>20</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>50</span><span class=p>);</span>
   <span class=c1>// Make a red circle</span>
   <span class=n>drawing</span><span class=o>-&gt;</span><span class=n>SetDrawColor</span><span class=p>(</span><span class=mi>255</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
   <span class=n>drawing</span><span class=o>-&gt;</span><span class=n>DrawCircle</span><span class=p>(</span><span class=mi>9</span><span class=p>,</span> <span class=mi>10</span><span class=p>,</span> <span class=mi>5</span><span class=p>);</span>
   <span class=n>drawing</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageActor</span><span class=o>&gt;</span> <span class=n>imageActor</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>imageActor</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>imageActor</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>drawing</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>());</span>
 
   <span class=c1>// Create a renderer and render window</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>renderer</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>renderer</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span><span class=n>imageActor</span><span class=p>);</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renderWindow</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>renderWindow</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>);</span>
 
   <span class=c1>// An interactor</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>renderWindowInteractor</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>renderWindowInteractor</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>renderWindowInteractor</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderWindow</span><span class=p>);</span>
 
   <span class=c1>// Setup interactor style</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkInteractorStyleImage</span><span class=o>&gt;</span> <span class=n>interactorStyleImage</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkInteractorStyleImage</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>interactorStyleImage</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkInteractorStyleImage</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>renderWindowInteractor</span><span class=o>-&gt;</span><span class=n>SetInteractorStyle</span><span class=p>(</span><span class=n>interactorStyleImage</span><span class=p>);</span>
 
   <span class=c1>// Create the representation</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPointHandleRepresentation2D</span><span class=o>&gt;</span> <span class=n>handle</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPointHandleRepresentation2D</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>handle</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>);</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSeedRepresentation</span><span class=o>&gt;</span> <span class=n>rep</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSeedRepresentation</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>handle</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPointHandleRepresentation2D</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>handle</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
+  <span class=k>auto</span> <span class=n>rep</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSeedRepresentation</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>rep</span><span class=o>-&gt;</span><span class=n>SetHandleRepresentation</span><span class=p>(</span><span class=n>handle</span><span class=p>);</span>
 
   <span class=c1>// Seed widget</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSeedWidget</span><span class=o>&gt;</span> <span class=n>seedWidget</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSeedWidget</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>seedWidget</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSeedWidget</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>seedWidget</span><span class=o>-&gt;</span><span class=n>SetInteractor</span><span class=p>(</span><span class=n>renderWindowInteractor</span><span class=p>);</span>
   <span class=n>seedWidget</span><span class=o>-&gt;</span><span class=n>SetRepresentation</span><span class=p>(</span><span class=n>rep</span><span class=p>);</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSeedImageCallback</span><span class=o>&gt;</span> <span class=n>seedCallback</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSeedImageCallback</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>seedCallback</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSeedImageCallback</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>seedCallback</span><span class=o>-&gt;</span><span class=n>SetRepresentation</span><span class=p>(</span><span class=n>rep</span><span class=p>);</span>
   <span class=n>seedCallback</span><span class=o>-&gt;</span><span class=n>SetWidget</span><span class=p>(</span><span class=n>seedWidget</span><span class=p>);</span>
-<span class=hll>  <span class=n>seedWidget</span><span class=o>-&gt;</span><span class=n>AddObserver</span><span class=p>(</span><span class=n>vtkCommand</span><span class=o>::</span><span class=n>PlacePointEvent</span><span class=p>,</span><span class=n>seedCallback</span><span class=p>);</span>
-</span><span class=hll>  <span class=n>seedWidget</span><span class=o>-&gt;</span><span class=n>AddObserver</span><span class=p>(</span><span class=n>vtkCommand</span><span class=o>::</span><span class=n>InteractionEvent</span><span class=p>,</span><span class=n>seedCallback</span><span class=p>);</span>
+<span class=hll>  <span class=n>seedWidget</span><span class=o>-&gt;</span><span class=n>AddObserver</span><span class=p>(</span><span class=n>vtkCommand</span><span class=o>::</span><span class=n>PlacePointEvent</span><span class=p>,</span> <span class=n>seedCallback</span><span class=p>);</span>
+</span><span class=hll>  <span class=n>seedWidget</span><span class=o>-&gt;</span><span class=n>AddObserver</span><span class=p>(</span><span class=n>vtkCommand</span><span class=o>::</span><span class=n>InteractionEvent</span><span class=p>,</span> <span class=n>seedCallback</span><span class=p>);</span>
 </span>
   <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>
 
@@ -203,8 +209,10 @@ function registerListener(event, func) {
   <span class=s>vtkImagingSources</span>
   <span class=s>vtkInteractionStyle</span>
   <span class=s>vtkInteractionWidgets</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping SeedWidgetImage: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

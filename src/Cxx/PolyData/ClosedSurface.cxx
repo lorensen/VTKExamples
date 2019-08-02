@@ -33,6 +33,7 @@ int main(int argc, char *argv[])
   featureEdges->FeatureEdgesOff();
   featureEdges->BoundaryEdgesOn();
   featureEdges->NonManifoldEdgesOn();
+  featureEdges->ManifoldEdgesOff();
   featureEdges->SetInputData(polyData);
   featureEdges->Update();
 

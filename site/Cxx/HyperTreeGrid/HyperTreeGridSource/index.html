@@ -71,6 +71,7 @@ function registerListener(event, func) {
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkShrinkFilter.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkVersion.h&gt;</span><span class=cp></span>
 </span>
 <span class=cp>#include</span> <span class=cpf>&lt;cstdlib&gt;</span><span class=cp></span>
 
@@ -78,7 +79,11 @@ function registerListener(event, func) {
 <span class=p>{</span>
   <span class=c1>// Create hyper tree grid source</span>
 <span class=hll>  <span class=k>auto</span> <span class=n>source</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkHyperTreeGridSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>source</span><span class=o>-&gt;</span><span class=n>SetMaximumLevel</span><span class=p>(</span><span class=mi>6</span><span class=p>);</span>
+</span><span class=cp>#if VTK_VERSION_NUMBER &gt;= 89000000000ULL</span>
+  <span class=n>source</span><span class=o>-&gt;</span><span class=n>SetMaxDepth</span><span class=p>(</span><span class=mi>6</span><span class=p>);</span>
+<span class=cp>#else</span>
+  <span class=n>source</span><span class=o>-&gt;</span><span class=n>SetMaximumLevel</span><span class=p>(</span><span class=mi>6</span><span class=p>);</span>
+<span class=cp>#endif</span>
   <span class=n>source</span><span class=o>-&gt;</span><span class=n>SetDimensions</span><span class=p>(</span><span class=mi>4</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>3</span><span class=p>);</span> <span class=c1>// GridCell 3, 3, 2</span>
   <span class=n>source</span><span class=o>-&gt;</span><span class=n>SetGridScale</span><span class=p>(</span><span class=mf>1.5</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.7</span><span class=p>);</span>
   <span class=n>source</span><span class=o>-&gt;</span><span class=n>SetBranchFactor</span><span class=p>(</span><span class=mi>4</span><span class=p>);</span>

@@ -384,7 +384,6 @@ function registerListener(event, func) {
                 <span class=o>?</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>size_t</span><span class=o>&gt;</span><span class=p>(</span><span class=n>numberOfBands</span><span class=p>)</span>
                 <span class=o>:</span> <span class=n>x</span><span class=p>.</span><span class=n>size</span><span class=p>();</span>
   <span class=c1>// Adjust the last band.</span>
-  <span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>double</span><span class=o>&gt;</span> <span class=n>t</span> <span class=o>=</span> <span class=n>x</span><span class=p>[</span><span class=n>sz</span> <span class=o>-</span> <span class=mi>1</span><span class=p>];</span>
   <span class=k>if</span> <span class=p>(</span><span class=n>x</span><span class=p>[</span><span class=n>sz</span> <span class=o>-</span> <span class=mi>1</span><span class=p>][</span><span class=mi>0</span><span class=p>]</span> <span class=o>&gt;</span> <span class=n>dR</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span>
   <span class=p>{</span>
     <span class=n>x</span><span class=p>[</span><span class=n>sz</span> <span class=o>-</span> <span class=mi>1</span><span class=p>][</span><span class=mi>0</span><span class=p>]</span> <span class=o>=</span> <span class=n>dR</span><span class=p>[</span><span class=mi>0</span><span class=p>];</span>
@@ -993,8 +992,10 @@ function registerListener(event, func) {
   <span class=s>vtkFiltersSources</span>
   <span class=s>vtkInteractionStyle</span>
   <span class=s>vtkRenderingAnnotation</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping CurvatureBandsWithGlyphs: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

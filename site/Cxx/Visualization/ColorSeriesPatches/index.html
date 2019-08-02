@@ -126,11 +126,8 @@ function registerListener(event, func) {
 <span class=p>{</span>
 
 <span class=k>public</span><span class=o>:</span>
-  <span class=n>HTMLTableMaker</span><span class=p>()</span>
-  <span class=p>{</span>
-    <span class=k>this</span><span class=o>-&gt;</span><span class=n>nc</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-<span class=hll>  <span class=p>}</span>
-</span>
+  <span class=n>HTMLTableMaker</span><span class=p>()</span> <span class=o>=</span> <span class=k>default</span><span class=p>;</span>
+
   <span class=o>~</span><span class=n>HTMLTableMaker</span><span class=p>()</span> <span class=o>=</span> <span class=k>default</span><span class=p>;</span>
 
 <span class=k>public</span><span class=o>:</span>
@@ -145,7 +142,7 @@ function registerListener(event, func) {
 <span class=hll>  <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>MakeTable</span><span class=p>();</span>
 </span>
 <span class=k>private</span><span class=o>:</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;</span> <span class=n>nc</span><span class=p>;</span>
+  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;</span> <span class=n>nc</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 <span class=hll>  <span class=n>ColorStructures</span> <span class=n>cs</span> <span class=o>=</span> <span class=n>ColorStructures</span><span class=p>();</span>
 </span>  <span class=n>HTMLToFromRGBAColor</span> <span class=n>htmlRGBA</span> <span class=o>=</span> <span class=n>HTMLToFromRGBAColor</span><span class=p>();</span>
 <span class=p>};</span>

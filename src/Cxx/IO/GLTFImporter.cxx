@@ -2,6 +2,7 @@
 #include <vtkGLTFImporter.h>
 
 #include <vtkCamera.h>
+#include <vtkLight.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkInteractorStyleTrackballCamera.h>
@@ -50,6 +51,10 @@ int main(int argc, char* argv[])
   renderer->GetActiveCamera()->Azimuth(20);
   renderer->GetActiveCamera()->Elevation(30);
   renderer->ResetCameraClippingRange();
+
+  auto light =
+    vtkSmartPointer<vtkLight>::New();
+//  renderer->AddLight(light);
 
   renderWindowInteractor->Start();
 

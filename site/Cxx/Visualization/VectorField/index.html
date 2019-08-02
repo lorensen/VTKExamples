@@ -77,8 +77,8 @@ function registerListener(event, func) {
 <span class=kt>int</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span><span class=p>,</span> <span class=kt>char</span><span class=o>*</span><span class=p>[])</span>
 <span class=p>{</span>
   <span class=c1>// Create an image</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageData</span><span class=o>&gt;</span> <span class=n>image</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>image</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>
   <span class=c1>// Specify the size of the image data</span>
   <span class=n>image</span><span class=o>-&gt;</span><span class=n>SetDimensions</span><span class=p>(</span><span class=mi>50</span><span class=p>,</span> <span class=mi>50</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
@@ -93,7 +93,7 @@ function registerListener(event, func) {
     <span class=p>{</span>
       <span class=k>for</span> <span class=p>(</span><span class=k>auto</span> <span class=n>x</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>x</span> <span class=o>&lt;</span> <span class=n>dims</span><span class=p>[</span><span class=mi>0</span><span class=p>];</span> <span class=o>++</span><span class=n>x</span><span class=p>)</span>
       <span class=p>{</span>
-        <span class=kt>float</span><span class=o>*</span> <span class=n>pixel</span> <span class=o>=</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>image</span><span class=o>-&gt;</span><span class=n>GetScalarPointer</span><span class=p>(</span><span class=n>x</span><span class=p>,</span> <span class=n>y</span><span class=p>,</span> <span class=n>z</span><span class=p>));</span>
+        <span class=k>auto</span> <span class=n>pixel</span> <span class=o>=</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>image</span><span class=o>-&gt;</span><span class=n>GetScalarPointer</span><span class=p>(</span><span class=n>x</span><span class=p>,</span> <span class=n>y</span><span class=p>,</span> <span class=n>z</span><span class=p>));</span>
         <span class=n>pixel</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>=</span> <span class=mf>0.0</span><span class=p>;</span>
         <span class=n>pixel</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=mf>0.0</span><span class=p>;</span>
         <span class=n>pixel</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>=</span> <span class=mf>0.0</span><span class=p>;</span>
@@ -102,13 +102,13 @@ function registerListener(event, func) {
   <span class=p>}</span>
 
   <span class=p>{</span>
-    <span class=kt>float</span><span class=o>*</span> <span class=n>pixel</span> <span class=o>=</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>image</span><span class=o>-&gt;</span><span class=n>GetScalarPointer</span><span class=p>(</span><span class=mi>20</span><span class=p>,</span> <span class=mi>20</span><span class=p>,</span> <span class=mi>0</span><span class=p>));</span>
+    <span class=k>auto</span> <span class=n>pixel</span> <span class=o>=</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>image</span><span class=o>-&gt;</span><span class=n>GetScalarPointer</span><span class=p>(</span><span class=mi>20</span><span class=p>,</span> <span class=mi>20</span><span class=p>,</span> <span class=mi>0</span><span class=p>));</span>
     <span class=n>pixel</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>=</span> <span class=o>-</span><span class=mf>10.0</span><span class=p>;</span>
     <span class=n>pixel</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=mf>5.0</span><span class=p>;</span>
   <span class=p>}</span>
 
   <span class=p>{</span>
-    <span class=kt>float</span><span class=o>*</span> <span class=n>pixel</span> <span class=o>=</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>image</span><span class=o>-&gt;</span><span class=n>GetScalarPointer</span><span class=p>(</span><span class=mi>30</span><span class=p>,</span> <span class=mi>30</span><span class=p>,</span> <span class=mi>0</span><span class=p>));</span>
+    <span class=k>auto</span> <span class=n>pixel</span> <span class=o>=</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>image</span><span class=o>-&gt;</span><span class=n>GetScalarPointer</span><span class=p>(</span><span class=mi>30</span><span class=p>,</span> <span class=mi>30</span><span class=p>,</span> <span class=mi>0</span><span class=p>));</span>
     <span class=n>pixel</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>=</span> <span class=mf>10.0</span><span class=p>;</span>
     <span class=n>pixel</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=mf>10.0</span><span class=p>;</span>
   <span class=p>}</span>
@@ -117,16 +117,16 @@ function registerListener(event, func) {
   <span class=c1>// correctness).</span>
   <span class=c1>// std::cout &lt;&lt; image-&gt;GetPointData()-&gt;GetScalars()-&gt;GetName() &lt;&lt; std::endl;</span>
   <span class=n>image</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetActiveVectors</span><span class=p>(</span>
-    <span class=n>image</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetScalars</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetName</span><span class=p>());</span>
+      <span class=n>image</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetScalars</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetName</span><span class=p>());</span>
   <span class=c1>// image-&gt;GetPointData()-&gt;SetActiveVectors(&quot;ImageScalars&quot;);</span>
 
   <span class=c1>// Setup the arrows</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkArrowSource</span><span class=o>&gt;</span> <span class=n>arrowSource</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkArrowSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>arrowSource</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkArrowSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>arrowSource</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGlyph2D</span><span class=o>&gt;</span> <span class=n>glyphFilter</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGlyph2D</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>glyphFilter</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGlyph2D</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>glyphFilter</span><span class=o>-&gt;</span><span class=n>SetSourceConnection</span><span class=p>(</span><span class=n>arrowSource</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>glyphFilter</span><span class=o>-&gt;</span><span class=n>OrientOn</span><span class=p>();</span>
   <span class=n>glyphFilter</span><span class=o>-&gt;</span><span class=n>SetVectorModeToUseVector</span><span class=p>();</span>
@@ -134,37 +134,38 @@ function registerListener(event, func) {
   <span class=n>glyphFilter</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
   <span class=c1>// Create actors</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageSliceMapper</span><span class=o>&gt;</span> <span class=n>imageMapper</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageSliceMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>imageMapper</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageSliceMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>imageMapper</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>image</span><span class=p>);</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageSlice</span><span class=o>&gt;</span> <span class=n>imageSlice</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageSlice</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>imageSlice</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageSlice</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>imageSlice</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>imageMapper</span><span class=p>);</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>vectorMapper</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>vectorMapper</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>vectorMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>glyphFilter</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>vectorActor</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>vectorActor</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>vectorActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>vectorMapper</span><span class=p>);</span>
 
   <span class=c1>// Setup renderer</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>renderer</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>renderer</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>AddViewProp</span><span class=p>(</span><span class=n>imageSlice</span><span class=p>);</span>
   <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>AddViewProp</span><span class=p>(</span><span class=n>vectorActor</span><span class=p>);</span>
   <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>ResetCamera</span><span class=p>();</span>
 
   <span class=c1>// Setup render window</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renderWindow</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>renderWindow</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>);</span>
 
   <span class=c1>// Setup render window interactor</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>renderWindowInteractor</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkInteractorStyleImage</span><span class=o>&gt;</span> <span class=n>style</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkInteractorStyleImage</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>renderWindowInteractor</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=c1>// auto style =</span>
+<span class=hll>  <span class=c1>//  vtkSmartPointer&lt;vtkInteractorStyleImage&gt;::New();</span>
 </span>  <span class=c1>// renderWindowInteractor-&gt;SetInteractorStyle(style);</span>
 
   <span class=c1>// Render and start interaction</span>

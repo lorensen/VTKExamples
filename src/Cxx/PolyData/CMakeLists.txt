@@ -15,6 +15,7 @@ if(NOT VTK_BINARY_DIR)
     vtkFiltersGeometry
     vtkFiltersHybrid
     vtkFiltersModeling
+    vtkFiltersPoints
     vtkFiltersSources
     vtkFiltersVerdict
     vtkIOGeometry

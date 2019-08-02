@@ -2,7 +2,7 @@
 
 ## CSharp
 
-Out of 2843 available VTK classes, 188 are demonstrated here.
+Out of 2827 available VTK classes, 188 are demonstrated here.
 
 ### Excluded classes
 

@@ -61,98 +61,95 @@ function registerListener(event, func) {
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkBooleanTexture.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkCamera.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkDataSetMapper.h&gt;</span><span class=cp></span>
-</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkDataSetMapper.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkImplicitTextureCoords.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkNamedColors.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkProperty.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkQuadric.h&gt;</span><span class=cp></span>
-</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindow.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindowInteractor.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSphereSource.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkTexture.h&gt;</span><span class=cp></span>
 </span>
-<span class=kt>double</span> <span class=n>positions</span><span class=p>[][</span><span class=mi>3</span><span class=p>]</span> <span class=o>=</span> <span class=p>{</span>
-    <span class=p>{</span><span class=o>-</span><span class=mi>4</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>0</span><span class=p>},</span> <span class=p>{</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>0</span><span class=p>},</span> <span class=p>{</span><span class=mi>0</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>0</span><span class=p>},</span> <span class=p>{</span><span class=mi>2</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>0</span><span class=p>},</span>
-    <span class=p>{</span><span class=o>-</span><span class=mi>4</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>0</span><span class=p>},</span> <span class=p>{</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>0</span><span class=p>},</span> <span class=p>{</span><span class=mi>0</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>0</span><span class=p>},</span> <span class=p>{</span><span class=mi>2</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>0</span><span class=p>},</span>
-    <span class=p>{</span><span class=o>-</span><span class=mi>4</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>},</span> <span class=p>{</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>},</span> <span class=p>{</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>},</span> <span class=p>{</span><span class=mi>2</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>},</span>
-    <span class=p>{</span><span class=o>-</span><span class=mi>4</span><span class=p>,</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span><span class=mi>0</span><span class=p>},</span> <span class=p>{</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span><span class=mi>0</span><span class=p>},</span> <span class=p>{</span><span class=mi>0</span><span class=p>,</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span><span class=mi>0</span><span class=p>},</span> <span class=p>{</span><span class=mi>2</span><span class=p>,</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span><span class=mi>0</span><span class=p>}</span>
-<span class=p>};</span>
+<span class=k>namespace</span> <span class=p>{</span>
 
-<span class=hll><span class=k>static</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkBooleanTexture</span><span class=o>&gt;</span> <span class=n>MakeBooleanTexture</span> <span class=p>(</span><span class=kt>int</span><span class=p>,</span> <span class=kt>int</span><span class=p>,</span> <span class=kt>int</span><span class=p>);</span>
-</span>
-<span class=kt>int</span> <span class=nf>main</span> <span class=p>(</span><span class=kt>int</span> <span class=cm>/* argc */</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span> <span class=cm>/* argv */</span> <span class=p>[])</span>
+<span class=kt>double</span> <span class=n>positions</span><span class=p>[][</span><span class=mi>3</span><span class=p>]{{</span><span class=o>-</span><span class=mi>4</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span>  <span class=p>{</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span>  <span class=p>{</span><span class=mi>0</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span>  <span class=p>{</span><span class=mi>2</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span>
+                      <span class=p>{</span><span class=o>-</span><span class=mi>4</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span>  <span class=p>{</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span>  <span class=p>{</span><span class=mi>0</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span>  <span class=p>{</span><span class=mi>2</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span>
+                      <span class=p>{</span><span class=o>-</span><span class=mi>4</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span>  <span class=p>{</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span>  <span class=p>{</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span>  <span class=p>{</span><span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span>
+                      <span class=p>{</span><span class=o>-</span><span class=mi>4</span><span class=p>,</span> <span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span> <span class=p>{</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span> <span class=p>{</span><span class=mi>0</span><span class=p>,</span> <span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span> <span class=p>{</span><span class=mi>2</span><span class=p>,</span> <span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>}};</span>
+
+<span class=kt>unsigned</span> <span class=kt>char</span> <span class=n>solid</span><span class=p>[]{</span><span class=mi>255</span><span class=p>,</span> <span class=mi>255</span><span class=p>};</span>
+<span class=kt>unsigned</span> <span class=kt>char</span> <span class=n>clear</span><span class=p>[]{</span><span class=mi>255</span><span class=p>,</span> <span class=mi>0</span><span class=p>};</span>
+<span class=kt>unsigned</span> <span class=kt>char</span> <span class=n>edge</span><span class=p>[]{</span><span class=mi>0</span><span class=p>,</span> <span class=mi>255</span><span class=p>};</span>
+
+<span class=hll><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkBooleanTexture</span><span class=o>&gt;</span> <span class=n>MakeBooleanTexture</span><span class=p>(</span><span class=kt>int</span><span class=p>,</span> <span class=kt>int</span><span class=p>,</span> <span class=kt>int</span><span class=p>);</span>
+</span><span class=p>}</span> <span class=c1>// namespace</span>
+
+<span class=kt>int</span> <span class=n>main</span><span class=p>(</span><span class=kt>int</span> <span class=cm>/* argc */</span><span class=p>,</span> <span class=kt>char</span><span class=o>*</span> <span class=cm>/* argv */</span><span class=p>[])</span>
 <span class=p>{</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;</span> <span class=n>colors</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>colors</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renWin</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>renWin</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>iren</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>iren</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>iren</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renWin</span><span class=p>);</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>aren</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTexture</span><span class=o>&gt;</span> <span class=n>aTexture</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTexture</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkBooleanTexture</span><span class=o>&gt;</span> <span class=n>aBoolean</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkBooleanTexture</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>anActor</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>aren</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>
   <span class=c1>// define two elliptical cylinders</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkQuadric</span><span class=o>&gt;</span> <span class=n>quadric1</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkQuadric</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>quadric1</span><span class=o>-&gt;</span><span class=n>SetCoefficients</span> <span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=o>-</span><span class=mf>.07</span><span class=p>);</span>
+  <span class=k>auto</span> <span class=n>quadric1</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkQuadric</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>quadric1</span><span class=o>-&gt;</span><span class=n>SetCoefficients</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=o>-</span><span class=mf>.07</span><span class=p>);</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkQuadric</span><span class=o>&gt;</span> <span class=n>quadric2</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkQuadric</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>quadric2</span><span class=o>-&gt;</span><span class=n>SetCoefficients</span> <span class=p>(</span><span class=mi>2</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=o>-</span><span class=mf>.07</span><span class=p>);</span>
+  <span class=k>auto</span> <span class=n>quadric2</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkQuadric</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>quadric2</span><span class=o>-&gt;</span><span class=n>SetCoefficients</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=o>-</span><span class=mf>.07</span><span class=p>);</span>
 
   <span class=c1>// create a sphere for all to use</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;</span> <span class=n>aSphere</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>aSphere</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>aSphere</span><span class=o>-&gt;</span><span class=n>SetPhiResolution</span><span class=p>(</span><span class=mi>21</span><span class=p>);</span>
   <span class=n>aSphere</span><span class=o>-&gt;</span><span class=n>SetThetaResolution</span><span class=p>(</span><span class=mi>21</span><span class=p>);</span>
 
   <span class=c1>// create texture coordinates for all</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImplicitTextureCoords</span><span class=o>&gt;</span> <span class=n>tcoords</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImplicitTextureCoords</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>tcoords</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImplicitTextureCoords</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>tcoords</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>aSphere</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>tcoords</span><span class=o>-&gt;</span><span class=n>SetRFunction</span><span class=p>(</span><span class=n>quadric1</span><span class=p>);</span>
   <span class=n>tcoords</span><span class=o>-&gt;</span><span class=n>SetSFunction</span><span class=p>(</span><span class=n>quadric2</span><span class=p>);</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;</span> <span class=n>aMapper</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>aMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span> <span class=p>(</span><span class=n>tcoords</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span> <span class=p>());</span>
+  <span class=k>auto</span> <span class=n>aMapper</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>aMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>tcoords</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
 
   <span class=c1>// create a mapper, sphere and texture map for each case</span>
   <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>16</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
   <span class=p>{</span>
-    <span class=n>aBoolean</span> <span class=o>=</span> <span class=n>MakeBooleanTexture</span> <span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=mi>64</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
+    <span class=k>auto</span> <span class=n>aBoolean</span> <span class=o>=</span> <span class=n>MakeBooleanTexture</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=mi>64</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
 
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTexture</span><span class=o>&gt;</span> <span class=n>aTexture2</span> <span class=o>=</span>
-</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTexture</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>    <span class=n>aTexture2</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span> <span class=p>(</span><span class=n>aBoolean</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span> <span class=p>());</span>
+    <span class=k>auto</span> <span class=n>aTexture2</span> <span class=o>=</span>
+<span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTexture</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>    <span class=n>aTexture2</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>aBoolean</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
     <span class=n>aTexture2</span><span class=o>-&gt;</span><span class=n>InterpolateOff</span><span class=p>();</span>
-    <span class=n>aTexture2</span><span class=o>-&gt;</span><span class=n>RepeatOff</span> <span class=p>();</span>
+    <span class=n>aTexture2</span><span class=o>-&gt;</span><span class=n>RepeatOff</span><span class=p>();</span>
 
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>anActor2</span> <span class=o>=</span>
-</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+    <span class=k>auto</span> <span class=n>anActor2</span> <span class=o>=</span>
+<span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>
-    <span class=n>anActor2</span><span class=o>-&gt;</span><span class=n>SetMapper</span> <span class=p>(</span><span class=n>aMapper</span><span class=p>);</span>
-    <span class=n>anActor2</span><span class=o>-&gt;</span><span class=n>SetTexture</span> <span class=p>(</span><span class=n>aTexture2</span><span class=p>);</span>
-    <span class=n>anActor2</span><span class=o>-&gt;</span><span class=n>SetPosition</span> <span class=p>(</span> <span class=o>&amp;</span><span class=n>positions</span><span class=p>[</span><span class=n>i</span><span class=p>][</span><span class=mi>0</span><span class=p>]);</span>
-    <span class=n>anActor2</span><span class=o>-&gt;</span><span class=n>SetScale</span> <span class=p>(</span><span class=mf>2.0</span><span class=p>,</span> <span class=mf>2.0</span><span class=p>,</span> <span class=mf>2.0</span><span class=p>);</span>
-    <span class=n>aren</span><span class=o>-&gt;</span><span class=n>AddActor</span> <span class=p>(</span><span class=n>anActor2</span><span class=p>);</span>
+    <span class=n>anActor2</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>aMapper</span><span class=p>);</span>
+    <span class=n>anActor2</span><span class=o>-&gt;</span><span class=n>SetTexture</span><span class=p>(</span><span class=n>aTexture2</span><span class=p>);</span>
+    <span class=n>anActor2</span><span class=o>-&gt;</span><span class=n>SetPosition</span><span class=p>(</span><span class=o>&amp;</span><span class=n>positions</span><span class=p>[</span><span class=n>i</span><span class=p>][</span><span class=mi>0</span><span class=p>]);</span>
+    <span class=n>anActor2</span><span class=o>-&gt;</span><span class=n>SetScale</span><span class=p>(</span><span class=mf>2.0</span><span class=p>,</span> <span class=mf>2.0</span><span class=p>,</span> <span class=mf>2.0</span><span class=p>);</span>
+    <span class=n>aren</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span><span class=n>anActor2</span><span class=p>);</span>
   <span class=p>}</span>
 
   <span class=n>aren</span><span class=o>-&gt;</span><span class=n>SetBackground</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s>&quot;SlateGray&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
-  <span class=n>renWin</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>500</span><span class=p>,</span><span class=mi>500</span><span class=p>);</span>
+  <span class=n>renWin</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>500</span><span class=p>,</span> <span class=mi>500</span><span class=p>);</span>
   <span class=n>renWin</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>aren</span><span class=p>);</span>
 
   <span class=c1>// interact with data</span>
@@ -163,203 +160,201 @@ function registerListener(event, func) {
   <span class=k>return</span> <span class=n>EXIT_SUCCESS</span><span class=p>;</span>
 <span class=p>}</span>
 
-<span class=k>static</span> <span class=kt>unsigned</span> <span class=kt>char</span> <span class=n>solid</span><span class=p>[]</span> <span class=o>=</span> <span class=p>{</span><span class=mi>255</span><span class=p>,</span> <span class=mi>255</span><span class=p>};</span>
-<span class=k>static</span> <span class=kt>unsigned</span> <span class=kt>char</span> <span class=n>clear</span><span class=p>[]</span> <span class=o>=</span> <span class=p>{</span><span class=mi>255</span><span class=p>,</span> <span class=mi>0</span><span class=p>};</span>
-<span class=k>static</span> <span class=kt>unsigned</span> <span class=kt>char</span> <span class=n>edge</span><span class=p>[]</span> <span class=o>=</span>  <span class=p>{</span><span class=mi>0</span><span class=p>,</span> <span class=mi>255</span><span class=p>};</span>
+<span class=k>namespace</span> <span class=p>{</span>
 
-<span class=hll><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkBooleanTexture</span><span class=o>&gt;</span> <span class=n>MakeBooleanTexture</span><span class=p>(</span><span class=kt>int</span> <span class=n>caseNumber</span><span class=p>,</span>
-</span>                                                      <span class=kt>int</span> <span class=n>resolution</span><span class=p>,</span>
-                                                      <span class=kt>int</span> <span class=n>thickness</span><span class=p>)</span>
+<span class=hll><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkBooleanTexture</span><span class=o>&gt;</span>
+</span><span class=n>MakeBooleanTexture</span><span class=p>(</span><span class=kt>int</span> <span class=n>caseNumber</span><span class=p>,</span> <span class=kt>int</span> <span class=n>resolution</span><span class=p>,</span> <span class=kt>int</span> <span class=n>thickness</span><span class=p>)</span>
 <span class=p>{</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkBooleanTexture</span><span class=o>&gt;</span> <span class=n>booleanTexture</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkBooleanTexture</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>booleanTexture</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkBooleanTexture</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>
-  <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetXSize</span> <span class=p>(</span><span class=n>resolution</span><span class=p>);</span>
-  <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetYSize</span> <span class=p>(</span><span class=n>resolution</span><span class=p>);</span>
-  <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetThickness</span> <span class=p>(</span><span class=n>thickness</span><span class=p>);</span>
+  <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetXSize</span><span class=p>(</span><span class=n>resolution</span><span class=p>);</span>
+  <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetYSize</span><span class=p>(</span><span class=n>resolution</span><span class=p>);</span>
+  <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetThickness</span><span class=p>(</span><span class=n>thickness</span><span class=p>);</span>
 
   <span class=k>switch</span> <span class=p>(</span><span class=n>caseNumber</span><span class=p>)</span>
   <span class=p>{</span>
   <span class=k>case</span> <span class=mi>0</span><span class=o>:</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
     <span class=k>break</span><span class=p>;</span>
-  <span class=k>case</span> <span class=mi>1</span><span class=o>:</span>   <span class=cm>/* cut inside 1 */</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+  <span class=k>case</span> <span class=mi>1</span><span class=o>:</span> <span class=cm>/* cut inside 1 */</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
     <span class=k>break</span><span class=p>;</span>
-  <span class=k>case</span> <span class=mi>2</span><span class=o>:</span>   <span class=cm>/* cut outside 1 */</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+  <span class=k>case</span> <span class=mi>2</span><span class=o>:</span> <span class=cm>/* cut outside 1 */</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
     <span class=k>break</span><span class=p>;</span>
-  <span class=k>case</span> <span class=mi>3</span><span class=o>:</span>   <span class=cm>/* cut all 1 */</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+  <span class=k>case</span> <span class=mi>3</span><span class=o>:</span> <span class=cm>/* cut all 1 */</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
     <span class=k>break</span><span class=p>;</span>
   <span class=k>case</span> <span class=mi>4</span><span class=o>:</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
     <span class=k>break</span><span class=p>;</span>
   <span class=k>case</span> <span class=mi>5</span><span class=o>:</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
     <span class=k>break</span><span class=p>;</span>
   <span class=k>case</span> <span class=mi>6</span><span class=o>:</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
     <span class=k>break</span><span class=p>;</span>
   <span class=k>case</span> <span class=mi>7</span><span class=o>:</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
     <span class=k>break</span><span class=p>;</span>
   <span class=k>case</span> <span class=mi>8</span><span class=o>:</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
     <span class=k>break</span><span class=p>;</span>
   <span class=k>case</span> <span class=mi>9</span><span class=o>:</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
     <span class=k>break</span><span class=p>;</span>
   <span class=k>case</span> <span class=mi>10</span><span class=o>:</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
     <span class=k>break</span><span class=p>;</span>
   <span class=k>case</span> <span class=mi>11</span><span class=o>:</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
     <span class=k>break</span><span class=p>;</span>
   <span class=k>case</span> <span class=mi>12</span><span class=o>:</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
     <span class=k>break</span><span class=p>;</span>
   <span class=k>case</span> <span class=mi>13</span><span class=o>:</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
     <span class=k>break</span><span class=p>;</span>
   <span class=k>case</span> <span class=mi>14</span><span class=o>:</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span> <span class=p>(</span><span class=n>edge</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span><span class=p>(</span><span class=n>solid</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span><span class=p>(</span><span class=n>edge</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
     <span class=k>break</span><span class=p>;</span>
   <span class=k>case</span> <span class=mi>15</span><span class=o>:</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
-    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span> <span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnIn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOnOut</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInOn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
+    <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetOutOn</span><span class=p>(</span><span class=n>clear</span><span class=p>);</span>
     <span class=k>break</span><span class=p>;</span>
   <span class=p>}</span>
 
   <span class=k>return</span> <span class=n>booleanTexture</span><span class=p>;</span>
 <span class=p>}</span>
+<span class=p>}</span> <span class=c1>// namespace</span>
 </pre></div> <h3 id=cmakeliststxt>CMakeLists.txt<a class=headerlink href=#cmakeliststxt title="Permanent link">&para;</a></h3> <div class=codehilite><pre><span></span><span class=nb>cmake_minimum_required</span><span class=p>(</span><span class=s>VERSION</span> <span class=s>3.3</span> <span class=s>FATAL_ERROR</span><span class=p>)</span>
 
 <span class=nb>project</span><span class=p>(</span><span class=s>TextureCutQuadric</span><span class=p>)</span>
@@ -372,8 +367,10 @@ function registerListener(event, func) {
   <span class=s>vtkFiltersTexture</span>
   <span class=s>vtkImagingHybrid</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping TextureCutQuadric: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

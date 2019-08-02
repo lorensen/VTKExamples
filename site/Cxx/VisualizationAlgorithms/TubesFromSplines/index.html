@@ -128,9 +128,7 @@ function registerListener(event, func) {
   <span class=p>}</span>
 
   <span class=c1>// Add the scalars to the polydata</span>
-  <span class=k>auto</span> <span class=n>tubePolyData</span> <span class=o>=</span>
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>tubePolyData</span> <span class=o>=</span> <span class=n>functionSource</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>tubePolyData</span> <span class=o>=</span> <span class=n>functionSource</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>();</span>
   <span class=n>tubePolyData</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>AddArray</span><span class=p>(</span><span class=n>tubeRadius</span><span class=p>);</span>
   <span class=n>tubePolyData</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetActiveScalars</span><span class=p>(</span><span class=s>&quot;TubeRadius&quot;</span><span class=p>);</span>
 
@@ -153,10 +151,12 @@ function registerListener(event, func) {
 </span>  <span class=n>tubeMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>tuber</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>tubeMapper</span><span class=o>-&gt;</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=n>tubePolyData</span><span class=o>-&gt;</span><span class=n>GetScalarRange</span><span class=p>());</span>
 
-<span class=hll>  <span class=k>auto</span> <span class=n>lineActor</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>lineActor</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>lineActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>lineMapper</span><span class=p>);</span>
   <span class=n>lineActor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetLineWidth</span><span class=p>(</span><span class=mi>3</span><span class=p>);</span>
-<span class=hll>  <span class=k>auto</span> <span class=n>tubeActor</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>tubeActor</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>tubeActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>tubeMapper</span><span class=p>);</span>
   <span class=n>tubeActor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetOpacity</span><span class=p>(</span><span class=mf>.6</span><span class=p>);</span>
 
