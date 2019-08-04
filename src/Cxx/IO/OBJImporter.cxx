@@ -1,9 +1,7 @@
-#include <vtkCleanPolyData.h>
 #include <vtkNamedColors.h>
 #include <vtkOBJImporter.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
-#include <vtkPolyDataNormals.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
@@ -61,18 +59,9 @@ int main(int argc, char* argv[])
 
     vtkPolyData* pd =
         dynamic_cast<vtkPolyData*>(actor->GetMapper()->GetInput());
-    auto clean = vtkSmartPointer<vtkCleanPolyData>::New();
-    clean->SetInputData(pd);
-    clean->Update();
 
-    auto normals = vtkSmartPointer<vtkPolyDataNormals>::New();
-    normals->SetInputData(pd);
-    normals->SplittingOff();
-    normals->ConsistencyOn();
-    normals->Update();
     vtkPolyDataMapper* mapper =
         dynamic_cast<vtkPolyDataMapper*>(actor->GetMapper());
-    mapper->SetInputData(normals->GetOutput());
     mapper->SetInputData(pd);
   }
   renWin->Render();
