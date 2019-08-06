@@ -1,5 +1,4 @@
 #include <vtkActor.h>
-#include <vtkActorCollection.h>
 #include <vtkCamera.h>
 #include <vtkLookupTable.h>
 #include <vtkMapper.h>

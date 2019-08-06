@@ -1,4 +1,3 @@
-#include <vtkActorCollection.h>
 #include <vtkNamedColors.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
