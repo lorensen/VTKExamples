@@ -1,6 +1,5 @@
 #include <vtk3DSImporter.h>
 #include <vtkActor.h>
-#include <vtkActorCollection.h>
 #include <vtkCamera.h>
 #include <vtkNamedColors.h>
 #include <vtkProperty.h>
