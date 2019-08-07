@@ -245,6 +245,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [BandedPolyDataContourFilter](/Cxx/VisualizationAlgorithms/BandedPolyDataContourFilter) | vtkBandedPolyDataContourFilter | Create filled contours.
+[Boolean](/Cxx/ImplicitFunctions/Boolean) | vtkImplicitBoolean | Demonstrate booleans of two different implicit functions
 [ContourTriangulator](/Cxx/Modelling/ContourTriangulator) | vtkMarchingSquares vtkContourTriangulator | Create a contour from a structured point set (image) and triangulate it.
 [CutWithCutFunction](/Cxx/VisualizationAlgorithms/CutWithCutFunction) | vtkCutter | Cut a surface with an implicit plane using vtkCutter.
 [CutWithScalars](/Cxx/VisualizationAlgorithms/CutWithScalars) | vtkContourFilter | Cut a surface with scalars.
