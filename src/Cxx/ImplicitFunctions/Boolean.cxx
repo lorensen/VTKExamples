@@ -15,7 +15,7 @@
 
 int main(int argc, char *argv[])
 {
-	// Define colors
+  // Define colors
   auto colors =
   	vtkSmartPointer<vtkNamedColors>::New();
   vtkColor3d actorColor = colors->GetColor3d("AliceBlue");
@@ -67,8 +67,7 @@ int main(int argc, char *argv[])
   actor->GetProperty()->EdgeVisibilityOn();
   actor->GetProperty()->SetColor(actorColor.GetData());
   actor->GetProperty()->SetEdgeColor(EdgeColour.GetData());
-  
-  
+    
   // A renderer and render window
   auto renderer =
   	vtkSmartPointer<vtkRenderer>::New();
@@ -85,7 +84,6 @@ int main(int argc, char *argv[])
   renderer->GetActiveCamera()->SetPosition(5.0, -4.0, 1.6);
   renderer->GetActiveCamera()->SetViewUp(0.1, 0.5, 0.9);
   renderer->GetActiveCamera()->SetDistance(6.7);
-  
   renderWindow->Render();
   renderWindowInteractor->Start();
 }
