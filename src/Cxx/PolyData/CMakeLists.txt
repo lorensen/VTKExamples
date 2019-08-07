@@ -20,6 +20,7 @@ if(NOT VTK_BINARY_DIR)
     vtkFiltersVerdict
     vtkIOGeometry
     vtkIOImage
+    vtkIOImport
     vtkIOLegacy
     vtkIOPLY
     vtkIOXML
@@ -53,6 +54,7 @@ file(GLOB ALL_FILES *.cxx)
 
 Requires_Version(Curvatures "6.0.0" ALL_FILES)
 Requires_Version(AlignTwoPolyDatas "8.2" ALL_FILES)
+Requires_Class(AlignTwoPolyDatas vtkHausdorffDistancePointSetFilter)
 
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
