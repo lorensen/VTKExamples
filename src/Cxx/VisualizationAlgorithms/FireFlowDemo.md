@@ -6,12 +6,10 @@ The example uses vtkSliderWidget's to manipulate the center of the vtkPointSourc
 
 Here's the embedded video
 <br>
-<iframe width="256" src="https://www.youtube.com/embed/qWjAbxzDhWE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="256" src="https://www.youtube.com/watch?v=Uly_PRBoLgM" allowfullscreen></iframe>
 <br>
 showing the interactive movement of the seeding sphere.
 
 !!! cite
     The solution and geometry data is from the [Mayavi ](https://docs.enthought.com/mayavi/mayavi/) project. Mayavi is a python application that provides an easy to use interface to many vtk filters. Both a command-line and GUI interface are provided. If you use the Mayavi data or the Mayavi application, please use the following citation in any published work:
      **Ramachandran, P. and Varoquaux, G., `Mayavi: 3D Visualization of Scientific Data` IEEE Computing in Science & Engineering, 13 (2), pp. 40-51 (2011).**
-
- LocalWords:  corrdiantes
