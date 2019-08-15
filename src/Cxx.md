@@ -370,6 +370,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [Reflection](/Cxx/PolyData/Reflection) | vtkReflectionFilter | Mirror a DataSet.
 [RemoveOutsideSurface](/Cxx/PolyData/RemoveOutsideSurface) | vtkConnectivityFilter | Remove the outer surface of a multiple surface polydata.
 [RemoveVertices](/Cxx/PolyData/RemoveVertices) |  |
+[ResampleAppendedPolyData](/Cxx/PolyData/ResampleAppendedPolyData) | vtkCellLocator vtkPlaneSource vtkAppendPolyData | Resample a flat terrain containing multiple objects.
 [ResamplePolyLine](/Cxx/PolyData/ResamplePolyLine) |  |
 [ReverseSense](/Cxx/PolyData/ReverseSense) | vtkReverseSense | Flip normals.
 [RibbonFilter](/Cxx/PolyData/RibbonFilter) | vtkRibbonFilter |
