@@ -266,11 +266,11 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [MarchingCasesD](/Cxx/VisualizationAlgorithms/MarchingCasesD) | vtkMarchingCubes | Marching cubes. Case 7 is rotated 180 degrees about the y-axis with no label.
 [MarchingCubes](/Cxx/Modelling/MarchingCubes) | vtkMarchingCubes | Create a voxelized sphere.
 [MarchingSquares](/Cxx/Modelling/MarchingSquares) | vtkMarchingSquares | Create a contour from a structured point set (image).
-[Quadric](/Cxx/ImplicitFunctions/Quadric) | vtkQuadric | Create an ellipsoid using an implicit quadric.
+[ImplicitQuadric](/Cxx/ImplicitFunctions/ImplicitQuadric | vtkQuadric | Create an ellipsoid using an implicit quadric.
 [SampleFunction](/Cxx/ImplicitFunctions/SampleFunction) | vtkSampleFunction | Sample and visualize an implicit function.
 [ShepardInterpolation](/Cxx/Visualization/ShepardInterpolation) | vtkShepardMethod vtkProbeFilter vtkContourFilter | Interpolate scalar data.
 [SmoothDiscreteMarchingCubes](/Cxx/Modelling/SmoothDiscreteMarchingCubes) | vtkDiscreteMarchingCubes vtkWindowedSincPolyDataFilter | Generate smooth surfaces from labeled data.
-[Sphere](/Cxx/ImplicitFunctions/Sphere) | vtkSphere | Demonstrate sampling of a sphere implicit function.
+[ImplicitSphere1](/Cxx/ImplicitFunctions/ImplicitSphere1) | vtkSphere | Demonstrate sampling of a sphere implicit function.
 
 ## Working with 3D Data
 
