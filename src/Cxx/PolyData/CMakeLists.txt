@@ -1,6 +1,9 @@
 project (${WIKI}PolyData)
 
 if(NOT VTK_BINARY_DIR)
+  set(optional "")
+  Add_Optional_If_In_Library(Boolean "${VTK_AVAILABLE_COMPONENTS}" optional)
+message(STATUS"PolyData Optional: ${optional}") 
   set(VTK_LIBRARIES "")
   find_package(VTK COMPONENTS
     vtkCommonColor
@@ -36,6 +39,7 @@ if(NOT VTK_BINARY_DIR)
     vtkRenderingGL2PSOpenGL2
     vtkRenderingLOD
     vtkRenderingOpenGL2
+    ${optional}
     OPTIONAL_COMPONENTS
     #    vtkFiltersParallelStatistics
     vtkTestingRendering
@@ -55,6 +59,7 @@ file(GLOB ALL_FILES *.cxx)
 Requires_Version(Curvatures "6.0.0" ALL_FILES)
 Requires_Version(AlignTwoPolyDatas "8.2" ALL_FILES)
 Requires_Class(AlignTwoPolyDatas vtkHausdorffDistancePointSetFilter)
+Requires_Class(PolyDataBooleanOperationFilter vtkPolyDataBooleanFilter)
 
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
@@ -80,6 +85,7 @@ if (BUILD_TESTING)
     CellsInsideObject
     ColorDisconnectedRegionsDemo
     ColoredPoints
+    CombineImportedActors
     ConvexHull
     Curvatures
     DetermineArrayDataTypes
@@ -96,6 +102,7 @@ if (BUILD_TESTING)
     LoopBooleanPolyDataFilter
     MiscPointData
     PointLocatorVisualization
+    PolyDataBooleanOperationFilter
     PolyDataIsoLines
     PolyDataPointSampler
     PolyDataToImageData
@@ -134,6 +141,9 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-ColoredPoints ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestColoredPoints ${TEMP}/coloredpoints.vtp)
+
+  add_test(${KIT}-CombineImportedActors ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestCombineImportedActors ${DATA}/iflamingo.3ds)
 
   add_test(${KIT}-ConvexHull ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestConvexHull ${DATA}/cowHead.vtp)
@@ -176,6 +186,11 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-PointLocatorVisualization ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestPointLocatorVisualization -E 50)
+
+  if(TARGET PolyDataBooleanOperationFilter)
+    add_test(${KIT}-PolyDataBooleanOperationFilter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestPolyDataBooleanOperationFilter ${DATA}/Torso.vtp difference ${DATA}/ObliqueCone.vtp)
+  endif()
 
   add_test(${KIT}-PolyDataIsoLines ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestPolyDataIsoLines ${DATA}/cowHead.vtp)

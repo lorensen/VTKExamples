@@ -114,5 +114,29 @@ int main(int argc, char *argv[])
     std::cout << "Writing " << exportFileName << std::endl;
     exporter->Write();
   }
+  else if (outputExtension == "gltf" || outputExtension == "glb")
+  {
+    std::string exportFileName;
+    exportFileName = std::string(argv[filePrefixArgOffset]) + "." + "gltf";
+    auto exporter =
+      vtkSmartPointer<vtkGLTFExporter>::New();
+    exporter->SetFileName(exportFileName.c_str());
+    exporter->SetActiveRenderer(renderer);
+    exporter->SetRenderWindow(renderWindow);
+    std::cout << "Writing " << exportFileName << std::endl;
+    exporter->Write();
+  }
+  else if (outputExtension == "x3d")
+  {
+    std::string exportFileName;
+    exportFileName = std::string(argv[filePrefixArgOffset]) + "." + "x3d";
+    auto exporter =
+      vtkSmartPointer<vtkX3DExporter>::New();
+    exporter->SetFileName(exportFileName.c_str());
+    exporter->SetActiveRenderer(renderer);
+    exporter->SetRenderWindow(renderWindow);
+    std::cout << "Writing " << exportFileName << std::endl;
+    exporter->Write();
+  }
   return EXIT_SUCCESS;
 }

@@ -46,16 +46,19 @@ int main(int argc, char* argv[])
   importer->SetRenderWindow(renderWindow);
   importer->Update();
 
+  auto headLight =
+    vtkSmartPointer<vtkLight>::New();
+  headLight->SetLightTypeToHeadlight();
+  headLight->SwitchOn();
+  renderer->AddLight(headLight);
+
   renderWindow->Render();
   renderer->ResetCamera();
   renderer->GetActiveCamera()->Azimuth(20);
   renderer->GetActiveCamera()->Elevation(30);
   renderer->ResetCameraClippingRange();
 
-  auto light =
-    vtkSmartPointer<vtkLight>::New();
-//  renderer->AddLight(light);
-
+  renderWindow->Render();
   renderWindowInteractor->Start();
 
   return EXIT_SUCCESS;

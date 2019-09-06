@@ -121,6 +121,8 @@ int main (int, char *[])
   // Visualize
   vtkSmartPointer<vtkRenderer> renderer = 
     vtkSmartPointer<vtkRenderer>::New();
+  renderer->UseHiddenLineRemovalOn();
+
   vtkSmartPointer<vtkRenderWindow> renderWindow = 
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->SetWindowName("Quadratic Hexahedron Demo");

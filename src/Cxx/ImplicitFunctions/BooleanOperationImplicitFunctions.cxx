@@ -86,4 +86,6 @@ int main(int argc, char *argv[])
   renderer->GetActiveCamera()->SetDistance(6.7);
   renderWindow->Render();
   renderWindowInteractor->Start();
+
+  return EXIT_SUCCESS;
 }

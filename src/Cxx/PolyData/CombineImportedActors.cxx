@@ -43,6 +43,8 @@ int main (int argc, char *argv[])
 
   std::string fileName = argv[1];
   std::string extension = "";
+  int filePrefixArgOffset = 0; // depends on importer
+
   // Make the extension lowercase
   std::transform(extension.begin(), extension.end(), extension.begin(),
                  ::tolower);
@@ -59,6 +61,7 @@ int main (int argc, char *argv[])
     importRenderWindow = importer->GetRenderWindow();
     importer->Read();
     importRenderer = importer->GetRenderer();
+    filePrefixArgOffset = 2;
   }
   else if (extension == "3ds")
   {
@@ -69,6 +72,7 @@ int main (int argc, char *argv[])
     importRenderWindow = importer->GetRenderWindow();
     importer->Read();
     importRenderer = importer->GetRenderer();
+    filePrefixArgOffset = 2;
    }
   else if (extension == "gltf" || extension == "glb")
   {
@@ -79,6 +83,7 @@ int main (int argc, char *argv[])
     importRenderWindow = importer->GetRenderWindow();
     importer->Read();
     importRenderer = importer->GetRenderer();
+    filePrefixArgOffset = 2;
    }
   else if (extension == "obj")
   {
@@ -91,6 +96,7 @@ int main (int argc, char *argv[])
     importRenderWindow = importer->GetRenderWindow();
     importer->Read();
     importRenderer = importer->GetRenderer();
+    filePrefixArgOffset = 4;
    }
   auto append =
     vtkSmartPointer<vtkAppendPolyData>::New();
