@@ -157,7 +157,6 @@ def main():
     renderer.GetActiveCamera().SetPosition(-0.2, 0.2, 1)
     renderer.GetActiveCamera().SetFocalPoint(0, 0, 0)
     renderer.GetActiveCamera().SetViewUp(0, 1, 0)
-    renderer.GetActiveCamera().OrthogonalizeViewUp()
     renderer.ResetCamera()
     renderer.GetActiveCamera().Dolly(2.25)
     renderer.ResetCameraClippingRange()
