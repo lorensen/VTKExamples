@@ -102,6 +102,8 @@ function registerListener(event, func) {
 </span>
   <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>fileName</span> <span class=o>=</span> <span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>];</span>
   <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>extension</span> <span class=o>=</span> <span class=s>&quot;&quot;</span><span class=p>;</span>
+  <span class=kt>int</span> <span class=n>filePrefixArgOffset</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=c1>// depends on importer</span>
+
   <span class=c1>// Make the extension lowercase</span>
   <span class=n>std</span><span class=o>::</span><span class=n>transform</span><span class=p>(</span><span class=n>extension</span><span class=p>.</span><span class=n>begin</span><span class=p>(),</span> <span class=n>extension</span><span class=p>.</span><span class=n>end</span><span class=p>(),</span> <span class=n>extension</span><span class=p>.</span><span class=n>begin</span><span class=p>(),</span>
                  <span class=o>::</span><span class=n>tolower</span><span class=p>);</span>
@@ -118,6 +120,7 @@ function registerListener(event, func) {
     <span class=n>importRenderWindow</span> <span class=o>=</span> <span class=n>importer</span><span class=o>-&gt;</span><span class=n>GetRenderWindow</span><span class=p>();</span>
     <span class=n>importer</span><span class=o>-&gt;</span><span class=n>Read</span><span class=p>();</span>
     <span class=n>importRenderer</span> <span class=o>=</span> <span class=n>importer</span><span class=o>-&gt;</span><span class=n>GetRenderer</span><span class=p>();</span>
+    <span class=n>filePrefixArgOffset</span> <span class=o>=</span> <span class=mi>2</span><span class=p>;</span>
   <span class=p>}</span>
   <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>extension</span> <span class=o>==</span> <span class=s>&quot;3ds&quot;</span><span class=p>)</span>
   <span class=p>{</span>
@@ -128,6 +131,7 @@ function registerListener(event, func) {
     <span class=n>importRenderWindow</span> <span class=o>=</span> <span class=n>importer</span><span class=o>-&gt;</span><span class=n>GetRenderWindow</span><span class=p>();</span>
     <span class=n>importer</span><span class=o>-&gt;</span><span class=n>Read</span><span class=p>();</span>
     <span class=n>importRenderer</span> <span class=o>=</span> <span class=n>importer</span><span class=o>-&gt;</span><span class=n>GetRenderer</span><span class=p>();</span>
+    <span class=n>filePrefixArgOffset</span> <span class=o>=</span> <span class=mi>2</span><span class=p>;</span>
    <span class=p>}</span>
   <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>extension</span> <span class=o>==</span> <span class=s>&quot;gltf&quot;</span> <span class=o>||</span> <span class=n>extension</span> <span class=o>==</span> <span class=s>&quot;glb&quot;</span><span class=p>)</span>
   <span class=p>{</span>
@@ -138,6 +142,7 @@ function registerListener(event, func) {
     <span class=n>importRenderWindow</span> <span class=o>=</span> <span class=n>importer</span><span class=o>-&gt;</span><span class=n>GetRenderWindow</span><span class=p>();</span>
     <span class=n>importer</span><span class=o>-&gt;</span><span class=n>Read</span><span class=p>();</span>
     <span class=n>importRenderer</span> <span class=o>=</span> <span class=n>importer</span><span class=o>-&gt;</span><span class=n>GetRenderer</span><span class=p>();</span>
+    <span class=n>filePrefixArgOffset</span> <span class=o>=</span> <span class=mi>2</span><span class=p>;</span>
    <span class=p>}</span>
   <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>extension</span> <span class=o>==</span> <span class=s>&quot;obj&quot;</span><span class=p>)</span>
   <span class=p>{</span>
@@ -150,6 +155,7 @@ function registerListener(event, func) {
     <span class=n>importRenderWindow</span> <span class=o>=</span> <span class=n>importer</span><span class=o>-&gt;</span><span class=n>GetRenderWindow</span><span class=p>();</span>
     <span class=n>importer</span><span class=o>-&gt;</span><span class=n>Read</span><span class=p>();</span>
     <span class=n>importRenderer</span> <span class=o>=</span> <span class=n>importer</span><span class=o>-&gt;</span><span class=n>GetRenderer</span><span class=p>();</span>
+    <span class=n>filePrefixArgOffset</span> <span class=o>=</span> <span class=mi>4</span><span class=p>;</span>
    <span class=p>}</span>
   <span class=k>auto</span> <span class=n>append</span> <span class=o>=</span>
 <span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkAppendPolyData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>

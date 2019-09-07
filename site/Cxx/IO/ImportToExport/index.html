@@ -173,6 +173,30 @@ function registerListener(event, func) {
     <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Writing &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>exportFileName</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
     <span class=n>exporter</span><span class=o>-&gt;</span><span class=n>Write</span><span class=p>();</span>
   <span class=p>}</span>
+  <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>outputExtension</span> <span class=o>==</span> <span class=s>&quot;gltf&quot;</span> <span class=o>||</span> <span class=n>outputExtension</span> <span class=o>==</span> <span class=s>&quot;glb&quot;</span><span class=p>)</span>
+  <span class=p>{</span>
+    <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>exportFileName</span><span class=p>;</span>
+    <span class=n>exportFileName</span> <span class=o>=</span> <span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=n>filePrefixArgOffset</span><span class=p>])</span> <span class=o>+</span> <span class=s>&quot;.&quot;</span> <span class=o>+</span> <span class=s>&quot;gltf&quot;</span><span class=p>;</span>
+    <span class=k>auto</span> <span class=n>exporter</span> <span class=o>=</span>
+<span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGLTFExporter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>    <span class=n>exporter</span><span class=o>-&gt;</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>exportFileName</span><span class=p>.</span><span class=n>c_str</span><span class=p>());</span>
+    <span class=n>exporter</span><span class=o>-&gt;</span><span class=n>SetActiveRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>);</span>
+    <span class=n>exporter</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderWindow</span><span class=p>);</span>
+    <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Writing &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>exportFileName</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+    <span class=n>exporter</span><span class=o>-&gt;</span><span class=n>Write</span><span class=p>();</span>
+  <span class=p>}</span>
+  <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>outputExtension</span> <span class=o>==</span> <span class=s>&quot;x3d&quot;</span><span class=p>)</span>
+  <span class=p>{</span>
+    <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>exportFileName</span><span class=p>;</span>
+    <span class=n>exportFileName</span> <span class=o>=</span> <span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=n>filePrefixArgOffset</span><span class=p>])</span> <span class=o>+</span> <span class=s>&quot;.&quot;</span> <span class=o>+</span> <span class=s>&quot;x3d&quot;</span><span class=p>;</span>
+    <span class=k>auto</span> <span class=n>exporter</span> <span class=o>=</span>
+<span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkX3DExporter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>    <span class=n>exporter</span><span class=o>-&gt;</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>exportFileName</span><span class=p>.</span><span class=n>c_str</span><span class=p>());</span>
+    <span class=n>exporter</span><span class=o>-&gt;</span><span class=n>SetActiveRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>);</span>
+    <span class=n>exporter</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderWindow</span><span class=p>);</span>
+    <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Writing &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>exportFileName</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+    <span class=n>exporter</span><span class=o>-&gt;</span><span class=n>Write</span><span class=p>();</span>
+  <span class=p>}</span>
   <span class=k>return</span> <span class=n>EXIT_SUCCESS</span><span class=p>;</span>
 <span class=p>}</span>
 </pre></div> <h3 id=cmakeliststxt>CMakeLists.txt<a class=headerlink href=#cmakeliststxt title="Permanent link">&para;</a></h3> <div class=codehilite><pre><span></span><span class=nb>cmake_minimum_required</span><span class=p>(</span><span class=s>VERSION</span> <span class=s>3.3</span> <span class=s>FATAL_ERROR</span><span class=p>)</span>

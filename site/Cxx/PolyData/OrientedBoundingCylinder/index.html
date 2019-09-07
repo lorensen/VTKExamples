@@ -94,6 +94,8 @@ function registerListener(event, func) {
 <span class=cp>#include</span> <span class=cpf>&lt;cctype&gt;    // For to_lower</span><span class=cp></span>
 <span class=cp>#include</span> <span class=cpf>&lt;array&gt;</span><span class=cp></span>
 
+<span class=cp>#include</span> <span class=cpf>&lt;cstdlib&gt;</span><span class=cp></span>
+
 <span class=k>namespace</span> <span class=p>{</span>
 <span class=hll><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>ReadPolyData</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=k>const</span><span class=o>&amp;</span> <span class=n>fileName</span><span class=p>);</span>
 </span><span class=kt>double</span> <span class=nf>MakeAQuad</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>std</span><span class=o>::</span><span class=n>array</span><span class=o>&lt;</span><span class=kt>double</span><span class=p>,</span> <span class=mi>3</span><span class=o>&gt;&gt;</span> <span class=o>&amp;</span><span class=p>,</span>
@@ -136,7 +138,7 @@ function registerListener(event, func) {
   <span class=n>std</span><span class=o>::</span><span class=n>array</span><span class=o>&lt;</span><span class=kt>double</span><span class=p>,</span> <span class=mi>3</span><span class=o>&gt;</span> <span class=n>center</span><span class=p>;</span>
   <span class=n>std</span><span class=o>::</span><span class=n>array</span><span class=o>&lt;</span><span class=kt>double</span><span class=p>,</span> <span class=mi>3</span><span class=o>&gt;</span> <span class=n>endPoint</span><span class=p>;</span>
   <span class=n>std</span><span class=o>::</span><span class=n>array</span><span class=o>&lt;</span><span class=kt>double</span><span class=p>,</span> <span class=mi>3</span><span class=o>&gt;</span> <span class=n>point0</span><span class=p>,</span> <span class=n>point1</span><span class=p>,</span> <span class=n>point2</span><span class=p>,</span> <span class=n>point3</span><span class=p>,</span>
-    <span class=n>point4</span><span class=p>,</span> <span class=n>point5</span><span class=p>,</span> <span class=n>point6</span><span class=p>,</span> <span class=n>point7</span><span class=p>,</span> <span class=n>point8</span><span class=p>;</span>
+    <span class=n>point4</span><span class=p>,</span> <span class=n>point5</span><span class=p>,</span> <span class=n>point6</span><span class=p>,</span> <span class=n>point7</span><span class=p>;</span>
   <span class=n>std</span><span class=o>::</span><span class=n>array</span><span class=o>&lt;</span><span class=kt>double</span><span class=p>,</span> <span class=mi>3</span><span class=o>&gt;</span> <span class=n>radii</span><span class=p>;</span>
   <span class=n>std</span><span class=o>::</span><span class=n>array</span><span class=o>&lt;</span><span class=kt>double</span><span class=p>,</span> <span class=mi>3</span><span class=o>&gt;</span> <span class=n>lengths</span><span class=p>;</span>
 
@@ -353,7 +355,7 @@ function registerListener(event, func) {
       <span class=n>enclosedPoints</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
       <span class=k>if</span> <span class=p>(</span><span class=n>enclosedPoints</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span><span class=o>-&gt;</span><span class=n>GetPoints</span><span class=p>()</span> <span class=o>!=</span> <span class=k>nullptr</span><span class=p>)</span>
       <span class=p>{</span>
-        <span class=nl>std</span><span class=p>:</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;r: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>r</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+        <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;r: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>r</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
         <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; excluded points: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>enclosedPoints</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span><span class=o>-&gt;</span><span class=n>GetPoints</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetNumberOfPoints</span><span class=p>()</span> <span class=o>&lt;&lt;</span><span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
         <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>
       <span class=p>}</span>
