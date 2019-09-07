@@ -13,7 +13,9 @@
 #include <vtkProperty.h>
 #include <vtkColor.h>
 
-int main(int argc, char *argv[])
+#include <cstdlib>
+
+int main(int argc, char* argv[])
 {
   // Define colors
   auto colors =
@@ -70,4 +72,6 @@ int main(int argc, char *argv[])
   // Start
   renderWindow->Render();
   renderWindowInteractor->Start();
+
+  return EXIT_SUCCESS;
 }

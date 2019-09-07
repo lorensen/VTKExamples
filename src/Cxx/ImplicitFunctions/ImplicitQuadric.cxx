@@ -13,6 +13,8 @@
 #include <vtkProperty.h>
 #include <vtkColor.h>
 
+#include <cstdlib>
+
 int main(int argc, char *argv[])
 {
   // Define colors
@@ -69,4 +71,6 @@ int main(int argc, char *argv[])
   // Start
   renderWindow->Render();
   renderWindowInteractor->Start();
+
+  return EXIT_SUCCESS;
 }
