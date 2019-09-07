@@ -35,6 +35,8 @@
 #include <cctype>    // For to_lower
 #include <array>
 
+#include <cstdlib>
+
 namespace {
 vtkSmartPointer<vtkPolyData> ReadPolyData(std::string const& fileName);
 double MakeAQuad(std::vector<std::array<double, 3>> &,
@@ -77,7 +79,7 @@ int main (int argc, char *argv[])
   std::array<double, 3> center;
   std::array<double, 3> endPoint;
   std::array<double, 3> point0, point1, point2, point3,
-    point4, point5, point6, point7, point8;
+    point4, point5, point6, point7;
   std::array<double, 3> radii;
   std::array<double, 3> lengths;
 
@@ -294,7 +296,7 @@ int main (int argc, char *argv[])
       enclosedPoints->Update();
       if (enclosedPoints->GetOutput(1)->GetPoints() != nullptr)
       {
-        std:cout << "r: " << r << std::endl;
+        std::cout << "r: " << r << std::endl;
         std::cout << " excluded points: " << enclosedPoints->GetOutput(1)->GetPoints()->GetNumberOfPoints() <<std::endl;
         renderWindow->Render();
       }
