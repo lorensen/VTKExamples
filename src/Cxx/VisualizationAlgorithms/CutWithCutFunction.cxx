@@ -20,6 +20,8 @@ int main(int argc, char *argv[])
   {
     std::cout << "Usage: " << argv[0]
               << " inputFilename(.vtp) [numberOfCuts]" << std::endl;
+    std::cout << "where: inputFilename is Torso.vtp and";
+    std::cout << " numberOfCuts is 10." << std::endl;
     return EXIT_FAILURE;
   }
   std::string inputFilename = argv[1];
@@ -114,6 +116,8 @@ int main(int argc, char *argv[])
 
   renderer->ResetCamera();
   renderWindow->Render();
+  renderWindow->SetWindowName("CutWithCutFunction");
+
 
   interactor->Start();
 
