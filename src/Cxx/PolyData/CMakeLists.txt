@@ -3,7 +3,6 @@ project (${WIKI}PolyData)
 if(NOT VTK_BINARY_DIR)
   set(optional "")
   Add_Optional_If_In_Library(Boolean "${VTK_AVAILABLE_COMPONENTS}" optional)
-message(STATUS"PolyData Optional: ${optional}") 
   set(VTK_LIBRARIES "")
   find_package(VTK COMPONENTS
     vtkCommonColor
@@ -59,7 +58,6 @@ file(GLOB ALL_FILES *.cxx)
 Requires_Version(Curvatures "6.0.0" ALL_FILES)
 Requires_Version(AlignTwoPolyDatas "8.2" ALL_FILES)
 Requires_Class(AlignTwoPolyDatas vtkHausdorffDistancePointSetFilter)
-Requires_Class(PolyDataBooleanOperationFilter vtkPolyDataBooleanFilter)
 
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
@@ -73,6 +71,8 @@ foreach(SOURCE_FILE ${ALL_FILES})
       )
   endif()
 endforeach()
+
+Requires_Target(PolyDataBooleanOperationFilter vtkPolyDataBooleanFilter)
 
 if (BUILD_TESTING)
   # Testing
@@ -189,6 +189,7 @@ if (BUILD_TESTING)
 
   if(TARGET PolyDataBooleanOperationFilter)
     add_test(${KIT}-PolyDataBooleanOperationFilter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+message (STATUS "TestPolyDataBooleanOperationFilter")
     TestPolyDataBooleanOperationFilter ${DATA}/Torso.vtp difference ${DATA}/ObliqueCone.vtp)
   endif()
 
