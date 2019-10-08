@@ -1,7 +1,7 @@
-#ifndef __APPLE_CC__
-#include <GL/glut.h>
+#if defined(__APPLE__)
+#include <GLUT/glut.h>
 #else
-#include <glut.h>
+#include <GL/glut.h>
 #endif
 #include <vtkActor.h>
 #include <vtkCamera.h>
