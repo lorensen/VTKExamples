@@ -864,6 +864,7 @@ This section includes vtkUnstructuredGrid.
 [RotationsC](/Cxx/Rendering/RotationsC) | vtkActor::RotateX,Y,Z vtkRenderer::EraseOff | Perform six rotations of a cow about her z-axis (Figure 3-31c).
 [RotationsD](/Cxx/Rendering/RotationsD) | vtkActor::RotateX,Y,Z vtkRenderer::EraseOff | First a rotation of a cow about her x-axis, then six rotations about her y-axis (Figure 3-31d).
 [Shadows](/Cxx/Rendering/Shadows) | vtkCameraPass vtkRenderStepsPass vtkSequencePass vtkShadowMapBakerPass vtkShadowMapPass | Draw model with shadows.
+[Skybox_PBR](/Cxx/Rendering/Skybox_PBR) | vtkSkybox vtkTexture | Demonstrates physically based rendering, image based lighting and a skybox.
 [SpecularSpheres](/Cxx/Rendering/SpecularSpheres) | vtkProperty | Demonstrates the effect of specular lighting on spheres.
 [StippledLine](/Cxx/Rendering/StippledLine) | vtkTexture | Draw a stippled line.
 [StringToImageDemo](/Cxx/Rendering/StringToImageDemo) | vtkImageBlend vtkFreeTypeTools | Demonstrates how to generate images from strings.
