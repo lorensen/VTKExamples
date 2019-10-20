@@ -83,7 +83,7 @@ if (BUILD_TESTING)
     TestColorByNormal ${DATA}/Armadillo.ply)
 
   add_test(${KIT}-CubeMap ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-    TestCubeMap ${DATA}/horse.ply ${DATA}/skyboxes/skybox1/skybox-px.jpg ${DATA}/skyboxes/skybox1/skybox-nx.jpg ${DATA}/skyboxes/skybox1/skybox-py.jpg ${DATA}/skyboxes/skybox1/skybox-ny.jpg ${DATA}/skyboxes/skybox1/skybox-pz.jpg ${DATA}/skyboxes/skybox1/skybox-nz.jpg)
+    TestCubeMap ${DATA}/horse.ply ${DATA}/skyboxes/skybox1/)
 
   add_test(${KIT}-MarbleShader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestMarbleShader ${DATA}/Shaders/PerlinNoise.glsl ${DATA}/horse.ply)
