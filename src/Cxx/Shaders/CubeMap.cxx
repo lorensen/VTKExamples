@@ -24,14 +24,30 @@
 #include <vtkShaderProperty.h>
 #endif
 
+namespace {
+/**
+ * Read the cube map.
+ *
+ * @param folderPath: The folder where the cube maps are stored.
+ * @param fileRoot: The root of the individual cube map file names.
+ * @param ext: The extension of the cube map files.
+ * @param key: The key to data used to build the full file name.
+ *
+ * @return The cubemap texture.
+ */
+vtkSmartPointer<vtkTexture> ReadCubeMap(std::string const& folderPath,
+                                        std::string const& fileRoot,
+                                        std::string const& ext, int const& key);
+
+} // namespace
+
 //----------------------------------------------------------------------------
 int main(int argc, char* argv[])
 {
-  if (argc < 8)
+  if (argc < 3)
   {
     std::cout << "Usage: " << argv[0]
-              << " horse.ply skybox-px.jpg skybox-nx.jpg skybox-py.jpg "
-                 "skybox-ny.jpg skybox-pz.jpg skybox-nz.jpg"
+              << " horse.ply path_to_cubemap_files"
               << std::endl;
     return EXIT_FAILURE;
   }
@@ -43,25 +59,13 @@ int main(int argc, char* argv[])
   renderWindow->AddRenderer(renderer);
   auto interactor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
-  auto texture = vtkSmartPointer<vtkTexture>::New();
-  texture->CubeMapOn();
-
   auto reader = vtkSmartPointer<vtkPLYReader>::New();
   reader->SetFileName(argv[1]);
 
   auto norms = vtkSmartPointer<vtkPolyDataNormals>::New();
   norms->SetInputConnection(reader->GetOutputPort());
 
-  for (int i = 0; i < 6; i++)
-  {
-    auto imgReader = vtkSmartPointer<vtkJPEGReader>::New();
-    imgReader->SetFileName(argv[i + 2]);
-
-    auto flip = vtkSmartPointer<vtkImageFlip>::New();
-    flip->SetInputConnection(imgReader->GetOutputPort());
-    flip->SetFilteredAxis(1); // flip y axis
-    texture->SetInputConnection(i, flip->GetOutputPort(0));
-  }
+  auto texture = ReadCubeMap(argv[2], "/skybox", ".jpg", 2);
 
   auto mapper = vtkSmartPointer<vtkOpenGLPolyDataMapper>::New();
   mapper->SetInputConnection(norms->GetOutputPort());
@@ -129,3 +133,50 @@ int main(int argc, char* argv[])
 
   return EXIT_SUCCESS;
 }
+
+namespace {
+
+vtkSmartPointer<vtkTexture> ReadCubeMap(std::string const& folderPath,
+                                        std::string const& fileRoot,
+                                        std::string const& ext, int const& key)
+{
+  // A map of cube map naming conventions and the corresponding file name
+  // components.
+  std::map<int, std::vector<std::string>> fileNames{
+      {0, {"right", "left", "top", "bottom", "front", "back"}},
+      {1, {"posx", "negx", "posy", "negy", "posz", "negz"}},
+      {2, {"-px", "-nx", "-py", "-ny", "-pz", "-nz"}},
+      {3, {"0", "1", "2", "3", "4", "5"}}};
+  std::vector<std::string> fns;
+  if (fileNames.count(key))
+  {
+    fns = fileNames.at(key);
+  }
+  else
+  {
+    std::cerr << "ReadCubeMap(): invalid key, unable to continue." << std::endl;
+    std::exit(EXIT_FAILURE);
+  }
+  auto texture = vtkSmartPointer<vtkTexture>::New();
+  texture->CubeMapOn();
+  // Build the file names.
+  std::for_each(fns.begin(), fns.end(),
+                [&folderPath, &fileRoot, &ext](std::string& f) {
+                  f = folderPath + fileRoot + f + ext;
+                });
+  auto i = 0;
+  for (auto const& fn : fns)
+  {
+    auto imgReader = vtkSmartPointer<vtkJPEGReader>::New();
+    imgReader->SetFileName(fn.c_str());
+
+    auto flip = vtkSmartPointer<vtkImageFlip>::New();
+    flip->SetInputConnection(imgReader->GetOutputPort());
+    flip->SetFilteredAxis(1); // flip y axis
+    texture->SetInputConnection(i, flip->GetOutputPort(0));
+    ++i;
+  }
+  return texture;
+}
+
+} // namespace
