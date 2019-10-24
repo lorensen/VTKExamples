@@ -8,42 +8,33 @@ import vtk
 
 def get_program_parameters():
     import argparse
-    description = 'Demonstrates physically based rendering, image based lighting and a skybox.'
+    description = 'Demonstrates physically based rendering, image based lighting, texturing and a skybox.'
     epilogue = '''
 Physically based rendering sets color, metallicity and roughness of the object.
 Image based lighting uses a cubemap texture to specify the environment.
+Texturing is used to generate lighting effects.
 A Skybox is used to create the illusion of distant three-dimensional surroundings.
     '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('path', help='The path to the cubemap files.')
+    parser.add_argument('material_fn', help='The path to the material texture file.')
+    parser.add_argument('albedo_fn', help='The path to the albedo (base colour) texture file.')
+    parser.add_argument('normal_fn', help='The path to the normal texture file.')
+    parser.add_argument('emissive_fn', help='The path to the emissive texture file.')
     parser.add_argument('surface', nargs='?', default='Boy', help="The surface to use. Boy's surface is the default.")
     args = parser.parse_args()
-    return args.path, args.surface
+    return args.path, args.material_fn, args.albedo_fn, args.normal_fn, args.emissive_fn, args.surface
 
 
 def main():
     if not vtk_version_ok(8, 90, 0):
         print('You need VTK version 8.90 or greater to run this program.')
         return
-    cube_path, surface = get_program_parameters()
+    cube_path, material_fn, albedo_fn, normal_fn, emissive_fn, surface = get_program_parameters()
     if not os.path.isdir(cube_path):
         print('This path does not exist:', cube_path)
         return
-    surface = surface.lower()
-    available_surfaces = {'boy', 'mobius', 'torus', 'sphere', 'cube'}
-    if surface not in available_surfaces:
-        surface = 'boy'
-    if surface == 'mobius':
-        source = GetMobius()
-    elif surface == 'torus':
-        source = GetTorus()
-    elif surface == 'sphere':
-        source = GetSphere()
-    elif surface == 'cube':
-        source = GetCube()
-    else:
-        source = GetBoy()
 
     # Load the cube map
     # cubemap = ReadCubeMap(cube_path, '/', '.jpg', 0)
@@ -59,10 +50,37 @@ def main():
     skybox.RepeatOff()
     skybox.EdgeClampOn()
 
+    # Get the textures
+    material = GetTexture(material_fn)
+    albedo = GetTexture(albedo_fn)
+    albedo.UseSRGBColorSpaceOn()
+    normal = GetTexture(normal_fn)
+    emissive = GetTexture(emissive_fn)
+    emissive.UseSRGBColorSpaceOn()
+
+    # Get the surface
+    surface = surface.lower()
+    available_surfaces = {'boy', 'mobius', 'torus', 'sphere', 'cube'}
+    if surface not in available_surfaces:
+        surface = 'boy'
+    if surface == 'mobius':
+        source = GetMobius()
+    elif surface == 'torus':
+        source = GetTorus()
+    elif surface == 'sphere':
+        source = GetSphere()
+    elif surface == 'cube':
+        source = GetCube()
+    else:
+        source = GetBoy()
+
     colors = vtk.vtkNamedColors()
 
     # Set the background color.
     colors.SetColor('BkgColor', [26, 51, 102, 255])
+    colors.SetColor('VTKBlue', [6, 79, 141, 255])
+    # Let's make a complementary colour to VTKBlue
+    colors.SetColor('VTKBlueComp', [249, 176, 114, 255])
 
     renderer = vtk.vtkRenderer()
     renderWindow = vtk.vtkRenderWindow()
@@ -70,9 +88,17 @@ def main():
     interactor = vtk.vtkRenderWindowInteractor()
     interactor.SetRenderWindow(renderWindow)
 
-    # Lets use a smooth metallic surface
+    # Lets use a rough metallic surface
     metallicCoefficient = 1.0
-    roughnessCoefficient = 0.05
+    roughnessCoefficient = 0.8
+    # Other parameters
+    occlusionStrength = 10.0
+    normalScale = 10.0
+    emissiveCol = colors.GetColor3d('VTKBlueComp')
+    print(emissiveCol)
+    emissiveFactor = emissiveCol
+    print(emissiveFactor)
+    # emissiveFactor = [1.0, 1.0, 1.0]
 
     slwP = SliderProperties()
     slwP.initialValue = metallicCoefficient
@@ -85,13 +111,33 @@ def main():
 
     slwP.initialValue = roughnessCoefficient
     slwP.title = 'Roughness'
-    slwP.p1 = [0.1, 0.9]
-    slwP.p2 = [0.9, 0.9]
+    slwP.p1 = [0.2, 0.9]
+    slwP.p2 = [0.8, 0.9]
 
     sliderWidgetRoughness = MakeSliderWidget(slwP)
     sliderWidgetRoughness.SetInteractor(interactor)
     sliderWidgetRoughness.SetAnimationModeToAnimate()
     sliderWidgetRoughness.EnabledOn()
+
+    slwP.initialValue = occlusionStrength
+    slwP.title = 'Occlusion'
+    slwP.p1 = [0.1, 0.1]
+    slwP.p2 = [0.1, 0.9]
+
+    sliderWidgetOcclusionStrength = MakeSliderWidget(slwP)
+    sliderWidgetOcclusionStrength.SetInteractor(interactor)
+    sliderWidgetOcclusionStrength.SetAnimationModeToAnimate()
+    sliderWidgetOcclusionStrength.EnabledOn()
+
+    slwP.initialValue = normalScale
+    slwP.title = 'Normal'
+    slwP.p1 = [0.85, 0.1]
+    slwP.p2 = [0.85, 0.9]
+
+    sliderWidgetNormal = MakeSliderWidget(slwP)
+    sliderWidgetNormal.SetInteractor(interactor)
+    sliderWidgetNormal.SetAnimationModeToAnimate()
+    sliderWidgetNormal.EnabledOn()
 
     # Build the pipeline
     mapper = vtk.vtkPolyDataMapper()
@@ -100,8 +146,6 @@ def main():
     actor = vtk.vtkActor()
     actor.SetMapper(mapper)
 
-    renderer.UseImageBasedLightingOn()
-    renderer.SetEnvironmentCubeMap(cubemap)
     actor.GetProperty().SetInterpolationToPBR()
 
     # configure the basic properties
@@ -109,20 +153,39 @@ def main():
     actor.GetProperty().SetMetallic(metallicCoefficient)
     actor.GetProperty().SetRoughness(roughnessCoefficient)
 
-    # Create the slider callbacks to manipulate metallicity and roughness
-    sliderWidgetMetallic.AddObserver(vtk.vtkCommand.InteractionEvent, SliderCallbackMetallic(actor.GetProperty()))
-    sliderWidgetRoughness.AddObserver(vtk.vtkCommand.InteractionEvent, SliderCallbackRoughness(actor.GetProperty()))
+    # configure textures (needs tcoords on the mesh)
+    actor.GetProperty().SetBaseColorTexture(albedo)
+    actor.GetProperty().SetORMTexture(material)
+    actor.GetProperty().SetOcclusionStrength(occlusionStrength)
 
+    actor.GetProperty().SetEmissiveTexture(emissive)
+    actor.GetProperty().SetEmissiveFactor(emissiveFactor)
+
+    # needs tcoords, normals and tangents on the mesh
+    actor.GetProperty().SetNormalTexture(normal)
+    actor.GetProperty().SetNormalScale(normalScale)
+
+    renderer.UseImageBasedLightingOn()
+    renderer.SetEnvironmentCubeMap(cubemap)
     renderer.SetBackground(colors.GetColor3d("BkgColor"))
     renderer.AddActor(actor)
 
+    # Comment out if you don't want a skybox
     skyboxActor = vtk.vtkSkybox()
     skyboxActor.SetTexture(skybox)
     renderer.AddActor(skyboxActor)
 
+    # Create the slider callbacks to manipulate metallicity, roughness
+    # occlusion strength and normal scaling
+    sliderWidgetMetallic.AddObserver(vtk.vtkCommand.InteractionEvent, SliderCallbackMetallic(actor.GetProperty()))
+    sliderWidgetRoughness.AddObserver(vtk.vtkCommand.InteractionEvent, SliderCallbackRoughness(actor.GetProperty()))
+    sliderWidgetOcclusionStrength.AddObserver(vtk.vtkCommand.InteractionEvent,
+                                              SliderCallbackOcclusionStrength(actor.GetProperty()))
+    sliderWidgetNormal.AddObserver(vtk.vtkCommand.InteractionEvent, SliderCallbackNormalScale(actor.GetProperty()))
+
     renderWindow.SetSize(640, 480)
     renderWindow.Render()
-    renderWindow.SetWindowName("Skybox-PBR")
+    renderWindow.SetWindowName('PhysicallyBasedRendering')
 
     axes = vtk.vtkAxesActor()
 
@@ -132,7 +195,7 @@ def main():
     widget.SetOutlineColor(rgba[0], rgba[1], rgba[2])
     widget.SetOrientationMarker(axes)
     widget.SetInteractor(interactor)
-    widget.SetViewport(0.0, 0.2, 0.2, 0.4)
+    widget.SetViewport(0.0, 0.0, 0.2, 0.2)
     widget.SetEnabled(1)
     widget.InteractiveOn()
 
@@ -200,6 +263,33 @@ def ReadCubeMap(folderRoot, fileRoot, ext, key):
         flip.SetFilteredAxis(1)  # flip y axis
         texture.SetInputConnection(i, flip.GetOutputPort(0))
         i += 1
+    return texture
+
+
+def GetTexture(file_name):
+    """
+    Read an image and convert it to a texture
+    :param file_name: The image path.
+    :return: The texture.
+    """
+    # Read the image which will be the texture
+    path, extension = os.path.splitext(file_name)
+    extension = extension.lower()
+    # Make the extension lowercase
+    extension = extension.lower()
+    validExtensions = ['.jpg', '.png', '.bmp', '.tiff', '.pnm', '.pgm', '.ppm']
+    texture = vtk.vtkTexture()
+    if extension not in validExtensions:
+        print('Unable to read the texture file:')
+        return texture
+    # Read the images
+    readerFactory = vtk.vtkImageReader2Factory()
+    imgReader = readerFactory.CreateImageReader2(file_name)
+    imgReader.SetFileName(file_name)
+
+    texture.SetInputConnection(imgReader.GetOutputPort())
+    texture.Update()
+
     return texture
 
 
@@ -347,22 +437,6 @@ def UVTcoords(uResolution, vResolution, pd):
     return pd
 
 
-class SliderProperties:
-    tubeWidth = 0.008
-    sliderLength = 0.008
-    titleHeight = 0.02
-    labelHeight = 0.02
-
-    minimumValue = 0.0
-    maximumValue = 1.0
-    initialValue = 1.0
-
-    p1 = [0.1, 0.1]
-    p2 = [0.9, 0.1]
-
-    title = None
-
-
 def MakeSliderWidget(properties):
     slider = vtk.vtkSliderRepresentation2D()
 
@@ -405,6 +479,42 @@ class SliderCallbackRoughness:
         sliderWidget = caller
         value = sliderWidget.GetRepresentation().GetValue()
         self.actorProperty.SetRoughness(value)
+
+
+class SliderCallbackOcclusionStrength:
+    def __init__(self, actorProperty):
+        self.actorProperty = actorProperty
+
+    def __call__(self, caller, ev):
+        sliderWidget = caller
+        value = sliderWidget.GetRepresentation().GetValue()
+        self.actorProperty.SetOcclusionStrength(value)
+
+
+class SliderCallbackNormalScale:
+    def __init__(self, actorProperty):
+        self.actorProperty = actorProperty
+
+    def __call__(self, caller, ev):
+        sliderWidget = caller
+        value = sliderWidget.GetRepresentation().GetValue()
+        self.actorProperty.SetNormalScale(value)
+
+
+class SliderProperties:
+    tubeWidth = 0.008
+    sliderLength = 0.008
+    titleHeight = 0.02
+    labelHeight = 0.02
+
+    minimumValue = 0.0
+    maximumValue = 1.0
+    initialValue = 1.0
+
+    p1 = [0.2, 0.1]
+    p2 = [0.8, 0.1]
+
+    title = None
 
 
 if __name__ == '__main__':
