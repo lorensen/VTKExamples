@@ -95,9 +95,7 @@ def main():
     occlusionStrength = 10.0
     normalScale = 10.0
     emissiveCol = colors.GetColor3d('VTKBlueComp')
-    print(emissiveCol)
     emissiveFactor = emissiveCol
-    print(emissiveFactor)
     # emissiveFactor = [1.0, 1.0, 1.0]
 
     slwP = SliderProperties()
