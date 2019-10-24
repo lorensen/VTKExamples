@@ -404,6 +404,7 @@ This section includes vtkUnstructuredGrid.
 [Mace](/Python/Rendering/Mace) |  | An example of multiple inputs and outputs.
 [Model](/Python/Rendering/Model) | vtkRenderer vtkRenderWindow vtkRenderWindowInteractor | Illustrative diagram of graphics objects.
 [MotionBlur](/Python/Rendering/MotionBlur) | vtkRenderStepsPass vtkSimpleMotionBlurPass | Example of motion blur.
+[PhysicallyBasedRendering](/Python/Rendering/PhysicallyBasedRendering) | vtkSkybox vtkTexture | Demonstrates physically based rendering, image based lighting, texturing and a skybox.
 [Rainbow](/Python/Rendering/Rainbow) | vtkLookupTable | Use and manipulation of vtkLookupTables.
 [Rotations](/Python/Rendering/Rotations) | vtkActor::RotateX,Y,Z vtkRenderer::EraseOff | Rotations of a cow about her axes.
 [RotationsA](/Python/Rendering/RotationsA) | vtkActor::RotateX,Y,Z vtkRenderer::EraseOff | Perform six rotations of a cow about her x-axis (Figure 3-31a).
