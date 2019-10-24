@@ -16,7 +16,7 @@ A Skybox is used to create the illusion of distant three-dimensional surrounding
     '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('path', help='The path to the cubemap files.')
+    parser.add_argument('path', help='The path to the cubemap files e.g. skyboxes/skybox2/')
     parser.add_argument('surface', nargs='?', default='Boy', help="The surface to use. Boy's surface is the default.")
     args = parser.parse_args()
     return args.path, args.surface
@@ -190,6 +190,9 @@ def ReadCubeMap(folderRoot, fileRoot, ext, key):
     # Build the file names.
     for i in range(0, len(fns)):
         fns[i] = folderRoot + fileRoot + fns[i] + ext
+        if not os.path.isfile(fns[i]):
+            print('Nonexistent texture file:', fns[i])
+            return texture
     i = 0
     for fn in fns:
         imgReader = vtk.vtkJPEGReader()

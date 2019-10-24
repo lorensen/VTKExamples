@@ -17,11 +17,11 @@ A Skybox is used to create the illusion of distant three-dimensional surrounding
     '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('path', help='The path to the cubemap files.')
-    parser.add_argument('material_fn', help='The path to the material texture file.')
-    parser.add_argument('albedo_fn', help='The path to the albedo (base colour) texture file.')
-    parser.add_argument('normal_fn', help='The path to the normal texture file.')
-    parser.add_argument('emissive_fn', help='The path to the emissive texture file.')
+    parser.add_argument('path', help='The path to the cubemap files e.g. skyboxes/skybox2/')
+    parser.add_argument('material_fn', help='The path to the material texture file e.g. vtk_Material.png')
+    parser.add_argument('albedo_fn', help='The path to the albedo (base colour) texture file e.g. vtk_Base_Color.png')
+    parser.add_argument('normal_fn', help='The path to the normal texture file e.g. vtk_Normal.png')
+    parser.add_argument('emissive_fn', help='The path to the emissive texture file e.g. vtk_dark_bkg.png')
     parser.add_argument('surface', nargs='?', default='Boy', help="The surface to use. Boy's surface is the default.")
     args = parser.parse_args()
     return args.path, args.material_fn, args.albedo_fn, args.normal_fn, args.emissive_fn, args.surface
@@ -251,6 +251,9 @@ def ReadCubeMap(folderRoot, fileRoot, ext, key):
     # Build the file names.
     for i in range(0, len(fns)):
         fns[i] = folderRoot + fileRoot + fns[i] + ext
+        if not os.path.isfile(fns[i]):
+            print('Nonexistent texture file:', fns[i])
+            return texture
     i = 0
     for fn in fns:
         imgReader = vtk.vtkJPEGReader()
@@ -277,8 +280,11 @@ def GetTexture(file_name):
     extension = extension.lower()
     validExtensions = ['.jpg', '.png', '.bmp', '.tiff', '.pnm', '.pgm', '.ppm']
     texture = vtk.vtkTexture()
+    if not os.path.isfile(file_name):
+        print('Nonexistent texture file:', file_name)
+        return texture
     if extension not in validExtensions:
-        print('Unable to read the texture file:')
+        print('Unable to read the texture file:', file_name)
         return texture
     # Read the images
     readerFactory = vtk.vtkImageReader2Factory()
