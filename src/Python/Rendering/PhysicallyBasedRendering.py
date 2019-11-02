@@ -60,11 +60,13 @@ def main():
 
     # Get the surface
     surface = surface.lower()
-    available_surfaces = {'boy', 'mobius', 'torus', 'sphere', 'cube'}
+    available_surfaces = {'boy', 'mobius', 'randomhills', 'torus', 'sphere', 'cube'}
     if surface not in available_surfaces:
         surface = 'boy'
     if surface == 'mobius':
         source = GetMobius()
+    elif surface == 'randomhills':
+        source = GetRandomHills()
     elif surface == 'torus':
         source = GetTorus()
     elif surface == 'sphere':
@@ -256,7 +258,9 @@ def ReadCubeMap(folderRoot, fileRoot, ext, key):
             return texture
     i = 0
     for fn in fns:
-        imgReader = vtk.vtkJPEGReader()
+        # Read the images
+        readerFactory = vtk.vtkImageReader2Factory()
+        imgReader = readerFactory.CreateImageReader2(fn)
         imgReader.SetFileName(fn)
 
         flip = vtk.vtkImageFlip()
@@ -347,6 +351,39 @@ def GetMobius():
     return transformFilter.GetOutput()
 
 
+def GetRandomHills():
+    uResolution = 51
+    vResolution = 51
+    surface = vtk.vtkParametricRandomHills()
+    surface.SetRandomSeed(1)
+    surface.SetNumberOfHills(30)
+    # If you want a plane
+    # surface.SetHillAmplitude(0)
+
+    source = vtk.vtkParametricFunctionSource()
+    source.SetUResolution(uResolution)
+    source.SetVResolution(vResolution)
+    source.SetParametricFunction(surface)
+    source.Update()
+
+    # Build the tcoords
+    pd = UVTcoords(uResolution, vResolution, source.GetOutput())
+    # Now the tangents
+    tangents = vtk.vtkPolyDataTangents()
+    tangents.SetInputData(pd)
+    tangents.Update()
+
+    transform = vtk.vtkTransform()
+    transform.RotateZ(180.0)
+    transform.RotateX(90.0)
+    transformFilter = vtk.vtkTransformPolyDataFilter()
+    transformFilter.SetInputConnection(tangents.GetOutputPort())
+    transformFilter.SetTransform(transform)
+    transformFilter.Update()
+
+    return transformFilter.GetOutput()
+
+
 def GetTorus():
     uResolution = 51
     vResolution = 51
@@ -418,25 +455,21 @@ def UVTcoords(uResolution, vResolution, pd):
     v0 = 0.0
     du = 1.0 / (uResolution - 1)
     dv = 1.0 / (vResolution - 1)
-    u = u0
-    v = v0
     numPts = pd.GetNumberOfPoints()
     tCoords = vtk.vtkFloatArray()
     tCoords.SetNumberOfComponents(2)
     tCoords.SetNumberOfTuples(numPts)
     tCoords.SetName('Texture Coordinates')
     ptId = 0
+    u = u0
     for i in range(0, uResolution):
+        v = v0
         for j in range(0, vResolution):
             tc = [u, v]
             tCoords.SetTuple(ptId, tc)
             v += dv
-            if v > 1.0:
-                v = 0
             ptId += 1
         u -= du
-        if u < 0.0:
-            u = 1
     pd.GetPointData().SetTCoords(tCoords)
     return pd
 
