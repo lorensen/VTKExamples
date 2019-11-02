@@ -197,7 +197,9 @@ def ReadCubeMap(folderRoot, fileRoot, ext, key):
             return texture
     i = 0
     for fn in fns:
-        imgReader = vtk.vtkJPEGReader()
+        # Read the images
+        readerFactory = vtk.vtkImageReader2Factory()
+        imgReader = readerFactory.CreateImageReader2(fn)
         imgReader.SetFileName(fn)
 
         flip = vtk.vtkImageFlip()
