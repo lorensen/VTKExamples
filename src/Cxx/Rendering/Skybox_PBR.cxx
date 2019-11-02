@@ -4,8 +4,9 @@
 #include <vtkCubeSource.h>
 #include <vtkFloatArray.h>
 #include <vtkImageFlip.h>
+#include <vtkImageReader2.h>
+#include <vtkImageReader2Factory.h>
 #include <vtkInteractorStyleTrackballCamera.h>
-#include <vtkJPEGReader.h>
 #include <vtkLinearSubdivisionFilter.h>
 #include <vtkNamedColors.h>
 #include <vtkOrientationMarkerWidget.h>
@@ -414,7 +415,10 @@ vtkSmartPointer<vtkTexture> ReadCubeMap(std::string const& folderRoot,
   auto i = 0;
   for (auto const& fn : fns)
   {
-    auto imgReader = vtkSmartPointer<vtkJPEGReader>::New();
+    // Read the images
+    auto readerFactory = vtkSmartPointer<vtkImageReader2Factory>::New();
+    vtkSmartPointer<vtkImageReader2> imgReader;
+    imgReader.TakeReference(readerFactory->CreateImageReader2(fn.c_str()));
     imgReader->SetFileName(fn.c_str());
 
     auto flip = vtkSmartPointer<vtkImageFlip>::New();
