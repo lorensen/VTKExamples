@@ -16,6 +16,7 @@
 #include <vtkParametricBoy.h>
 #include <vtkParametricFunctionSource.h>
 #include <vtkParametricMobius.h>
+#include <vtkParametricRandomHills.h>
 #include <vtkParametricTorus.h>
 #include <vtkPointData.h>
 #include <vtkPolyData.h>
@@ -72,6 +73,7 @@ bool VTKVersionOk(unsigned long long const& major,
 vtkSmartPointer<vtkPolyData> GetBoy();
 vtkSmartPointer<vtkPolyData> GetMobius();
 vtkSmartPointer<vtkPolyData> GetSphere();
+vtkSmartPointer<vtkPolyData> GetRandomHills();
 vtkSmartPointer<vtkPolyData> GetTorus();
 vtkSmartPointer<vtkPolyData> GetCube();
 
@@ -266,7 +268,8 @@ int main(int argc, char* argv[])
                  desiredSurface.begin(),
                  [](char c) { return std::tolower(c); });
   std::map<std::string, int> availableSurfaces = {
-      {"boy", 0}, {"mobius", 1}, {"torus", 2}, {"sphere", 3}, {"cube", 4}};
+      {"boy", 0},   {"mobius", 1}, {"randomhills", 2},
+      {"torus", 3}, {"sphere", 4}, {"cube", 5}};
   if (availableSurfaces.find(desiredSurface) == availableSurfaces.end())
   {
     desiredSurface = "boy";
@@ -278,12 +281,15 @@ int main(int argc, char* argv[])
     source = GetMobius();
     break;
   case 2:
-    source = GetTorus();
+    source = GetRandomHills();
     break;
   case 3:
-    source = GetSphere();
+    source = GetTorus();
     break;
   case 4:
+    source = GetSphere();
+    break;
+  case 5:
     source = GetCube();
     break;
   case 0:
@@ -473,10 +479,14 @@ std::string ShowUsage(std::string fn)
         ", texturing and a skybox.\n\n"
      << "positional arguments:\n"
      << "  path         The path to the cubemap files e.g. skyboxes/skybox2/\n"
-     << "  material_fn  The path to the material texture file e.g. vtk_Material.png\n"
-     << "  albedo_fn    The path to the albedo (base colour) texture file e.g. vtk_Base_Color.png\n"
-     << "  normal_fn    The path to the normal texture file e.g. vtk_Normal.png\n"
-     << "  emissive_fn  The path to the emissive texture file e.g. vtk_dark_bkg.png\n"
+     << "  material_fn  The path to the material texture file e.g. "
+        "vtk_Material.png\n"
+     << "  albedo_fn    The path to the albedo (base colour) texture file e.g. "
+        "vtk_Base_Color.png\n"
+     << "  normal_fn    The path to the normal texture file e.g. "
+        "vtk_Normal.png\n"
+     << "  emissive_fn  The path to the emissive texture file e.g. "
+        "vtk_dark_bkg.png\n"
      << "  surface      The surface to use. Boy's surface is the default.\n\n"
      << "Physically based rendering sets color, metallicity and roughness of "
         "the object.\n"
@@ -564,6 +574,40 @@ vtkSmartPointer<vtkPolyData> GetMobius()
   return transformFilter->GetOutput();
 }
 
+vtkSmartPointer<vtkPolyData> GetRandomHills()
+{
+  auto uResolution = 51;
+  auto vResolution = 51;
+  auto surface = vtkSmartPointer<vtkParametricRandomHills>::New();
+  surface->SetRandomSeed(1);
+  surface->SetNumberOfHills(30);
+  // If you want a plane
+  // surface->SetHillAmplitude(0);
+
+  auto source = vtkSmartPointer<vtkParametricFunctionSource>::New();
+  source->SetUResolution(uResolution);
+  source->SetVResolution(vResolution);
+  source->SetParametricFunction(surface);
+  source->Update();
+
+  // Build the tcoords
+  auto pd = UVTcoords(uResolution, vResolution, source->GetOutput());
+  // Now the tangents
+  auto tangents = vtkSmartPointer<vtkPolyDataTangents>::New();
+  tangents->SetInputData(pd);
+  tangents->Update();
+
+  auto transform = vtkSmartPointer<vtkTransform>::New();
+  transform->RotateZ(180.0);
+  transform->RotateX(90.0);
+  auto transformFilter = vtkSmartPointer<vtkTransformPolyDataFilter>::New();
+  transformFilter->SetInputConnection(tangents->GetOutputPort());
+  transformFilter->SetTransform(transform);
+  transformFilter->Update();
+
+  return transformFilter->GetOutput();
+}
+
 vtkSmartPointer<vtkPolyData> GetTorus()
 {
   auto uResolution = 51;
@@ -634,32 +678,24 @@ vtkSmartPointer<vtkPolyData> UVTcoords(const float& uResolution,
   float v0 = 0.0;
   float du = 1.0 / (uResolution - 1);
   float dv = 1.0 / (vResolution - 1);
-  float u = u0;
-  float v = v0;
   vtkIdType numPts = pd->GetNumberOfPoints();
   auto tCoords = vtkSmartPointer<vtkFloatArray>::New();
   tCoords->SetNumberOfComponents(2);
   tCoords->SetNumberOfTuples(numPts);
   tCoords->SetName("Texture Coordinates");
   vtkIdType ptId = 0;
+  float u = u0;
   for (auto i = 0; i < uResolution; ++i)
   {
+    float v = v0;
     for (auto j = 0; j < vResolution; ++j)
     {
       float tc[2]{u, v};
       tCoords->SetTuple(ptId, tc);
       v += dv;
-      if (v > 1.0)
-      {
-        v = 0;
-      }
       ptId++;
     }
     u -= du;
-    if (u < 0.0)
-    {
-      u = 1;
-    }
   }
   pd->GetPointData()->SetTCoords(tCoords);
   return pd;
@@ -728,7 +764,10 @@ vtkSmartPointer<vtkTexture> ReadCubeMap(std::string const& folderRoot,
   auto i = 0;
   for (auto const& fn : fns)
   {
-    auto imgReader = vtkSmartPointer<vtkJPEGReader>::New();
+    // Read the images
+    auto readerFactory = vtkSmartPointer<vtkImageReader2Factory>::New();
+    vtkSmartPointer<vtkImageReader2> imgReader;
+    imgReader.TakeReference(readerFactory->CreateImageReader2(fn.c_str()));
     imgReader->SetFileName(fn.c_str());
 
     auto flip = vtkSmartPointer<vtkImageFlip>::New();
