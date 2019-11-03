@@ -119,11 +119,13 @@ function registerListener(event, func) {
 
     <span class=c1># Get the surface</span>
     <span class=n>surface</span> <span class=o>=</span> <span class=n>surface</span><span class=o>.</span><span class=n>lower</span><span class=p>()</span>
-    <span class=n>available_surfaces</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;boy&#39;</span><span class=p>,</span> <span class=s1>&#39;mobius&#39;</span><span class=p>,</span> <span class=s1>&#39;torus&#39;</span><span class=p>,</span> <span class=s1>&#39;sphere&#39;</span><span class=p>,</span> <span class=s1>&#39;cube&#39;</span><span class=p>}</span>
+    <span class=n>available_surfaces</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;boy&#39;</span><span class=p>,</span> <span class=s1>&#39;mobius&#39;</span><span class=p>,</span> <span class=s1>&#39;randomhills&#39;</span><span class=p>,</span> <span class=s1>&#39;torus&#39;</span><span class=p>,</span> <span class=s1>&#39;sphere&#39;</span><span class=p>,</span> <span class=s1>&#39;cube&#39;</span><span class=p>}</span>
     <span class=k>if</span> <span class=n>surface</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>available_surfaces</span><span class=p>:</span>
         <span class=n>surface</span> <span class=o>=</span> <span class=s1>&#39;boy&#39;</span>
     <span class=k>if</span> <span class=n>surface</span> <span class=o>==</span> <span class=s1>&#39;mobius&#39;</span><span class=p>:</span>
         <span class=n>source</span> <span class=o>=</span> <span class=n>GetMobius</span><span class=p>()</span>
+    <span class=k>elif</span> <span class=n>surface</span> <span class=o>==</span> <span class=s1>&#39;randomhills&#39;</span><span class=p>:</span>
+        <span class=n>source</span> <span class=o>=</span> <span class=n>GetRandomHills</span><span class=p>()</span>
     <span class=k>elif</span> <span class=n>surface</span> <span class=o>==</span> <span class=s1>&#39;torus&#39;</span><span class=p>:</span>
         <span class=n>source</span> <span class=o>=</span> <span class=n>GetTorus</span><span class=p>()</span>
     <span class=k>elif</span> <span class=n>surface</span> <span class=o>==</span> <span class=s1>&#39;sphere&#39;</span><span class=p>:</span>
@@ -315,8 +317,10 @@ function registerListener(event, func) {
             <span class=k>return</span> <span class=n>texture</span>
     <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span>
     <span class=k>for</span> <span class=n>fn</span> <span class=ow>in</span> <span class=n>fns</span><span class=p>:</span>
-<span class=hll>        <span class=n>imgReader</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkJPEGReader</span><span class=p>()</span>
-</span>        <span class=n>imgReader</span><span class=o>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>fn</span><span class=p>)</span>
+        <span class=c1># Read the images</span>
+<span class=hll>        <span class=n>readerFactory</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkImageReader2Factory</span><span class=p>()</span>
+</span>        <span class=n>imgReader</span> <span class=o>=</span> <span class=n>readerFactory</span><span class=o>.</span><span class=n>CreateImageReader2</span><span class=p>(</span><span class=n>fn</span><span class=p>)</span>
+        <span class=n>imgReader</span><span class=o>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>fn</span><span class=p>)</span>
 
 <span class=hll>        <span class=n>flip</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkImageFlip</span><span class=p>()</span>
 </span>        <span class=n>flip</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>imgReader</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
@@ -406,6 +410,39 @@ function registerListener(event, func) {
     <span class=k>return</span> <span class=n>transformFilter</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span>
 
 
+<span class=k>def</span> <span class=nf>GetRandomHills</span><span class=p>():</span>
+    <span class=n>uResolution</span> <span class=o>=</span> <span class=mi>51</span>
+    <span class=n>vResolution</span> <span class=o>=</span> <span class=mi>51</span>
+<span class=hll>    <span class=n>surface</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkParametricRandomHills</span><span class=p>()</span>
+</span>    <span class=n>surface</span><span class=o>.</span><span class=n>SetRandomSeed</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
+    <span class=n>surface</span><span class=o>.</span><span class=n>SetNumberOfHills</span><span class=p>(</span><span class=mi>30</span><span class=p>)</span>
+    <span class=c1># If you want a plane</span>
+    <span class=c1># surface.SetHillAmplitude(0)</span>
+
+<span class=hll>    <span class=n>source</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkParametricFunctionSource</span><span class=p>()</span>
+</span>    <span class=n>source</span><span class=o>.</span><span class=n>SetUResolution</span><span class=p>(</span><span class=n>uResolution</span><span class=p>)</span>
+    <span class=n>source</span><span class=o>.</span><span class=n>SetVResolution</span><span class=p>(</span><span class=n>vResolution</span><span class=p>)</span>
+    <span class=n>source</span><span class=o>.</span><span class=n>SetParametricFunction</span><span class=p>(</span><span class=n>surface</span><span class=p>)</span>
+    <span class=n>source</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
+
+    <span class=c1># Build the tcoords</span>
+    <span class=n>pd</span> <span class=o>=</span> <span class=n>UVTcoords</span><span class=p>(</span><span class=n>uResolution</span><span class=p>,</span> <span class=n>vResolution</span><span class=p>,</span> <span class=n>source</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>())</span>
+    <span class=c1># Now the tangents</span>
+<span class=hll>    <span class=n>tangents</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataTangents</span><span class=p>()</span>
+</span>    <span class=n>tangents</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>pd</span><span class=p>)</span>
+    <span class=n>tangents</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
+
+<span class=hll>    <span class=n>transform</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkTransform</span><span class=p>()</span>
+</span>    <span class=n>transform</span><span class=o>.</span><span class=n>RotateZ</span><span class=p>(</span><span class=mf>180.0</span><span class=p>)</span>
+    <span class=n>transform</span><span class=o>.</span><span class=n>RotateX</span><span class=p>(</span><span class=mf>90.0</span><span class=p>)</span>
+<span class=hll>    <span class=n>transformFilter</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkTransformPolyDataFilter</span><span class=p>()</span>
+</span>    <span class=n>transformFilter</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>tangents</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
+    <span class=n>transformFilter</span><span class=o>.</span><span class=n>SetTransform</span><span class=p>(</span><span class=n>transform</span><span class=p>)</span>
+    <span class=n>transformFilter</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
+
+    <span class=k>return</span> <span class=n>transformFilter</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span>
+
+
 <span class=k>def</span> <span class=nf>GetTorus</span><span class=p>():</span>
     <span class=n>uResolution</span> <span class=o>=</span> <span class=mi>51</span>
     <span class=n>vResolution</span> <span class=o>=</span> <span class=mi>51</span>
@@ -477,25 +514,21 @@ function registerListener(event, func) {
     <span class=n>v0</span> <span class=o>=</span> <span class=mf>0.0</span>
     <span class=n>du</span> <span class=o>=</span> <span class=mf>1.0</span> <span class=o>/</span> <span class=p>(</span><span class=n>uResolution</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span>
     <span class=n>dv</span> <span class=o>=</span> <span class=mf>1.0</span> <span class=o>/</span> <span class=p>(</span><span class=n>vResolution</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span>
-    <span class=n>u</span> <span class=o>=</span> <span class=n>u0</span>
-    <span class=n>v</span> <span class=o>=</span> <span class=n>v0</span>
     <span class=n>numPts</span> <span class=o>=</span> <span class=n>pd</span><span class=o>.</span><span class=n>GetNumberOfPoints</span><span class=p>()</span>
 <span class=hll>    <span class=n>tCoords</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkFloatArray</span><span class=p>()</span>
 </span>    <span class=n>tCoords</span><span class=o>.</span><span class=n>SetNumberOfComponents</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span>
     <span class=n>tCoords</span><span class=o>.</span><span class=n>SetNumberOfTuples</span><span class=p>(</span><span class=n>numPts</span><span class=p>)</span>
     <span class=n>tCoords</span><span class=o>.</span><span class=n>SetName</span><span class=p>(</span><span class=s1>&#39;Texture Coordinates&#39;</span><span class=p>)</span>
     <span class=n>ptId</span> <span class=o>=</span> <span class=mi>0</span>
+    <span class=n>u</span> <span class=o>=</span> <span class=n>u0</span>
     <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>uResolution</span><span class=p>):</span>
+        <span class=n>v</span> <span class=o>=</span> <span class=n>v0</span>
         <span class=k>for</span> <span class=n>j</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>vResolution</span><span class=p>):</span>
             <span class=n>tc</span> <span class=o>=</span> <span class=p>[</span><span class=n>u</span><span class=p>,</span> <span class=n>v</span><span class=p>]</span>
             <span class=n>tCoords</span><span class=o>.</span><span class=n>SetTuple</span><span class=p>(</span><span class=n>ptId</span><span class=p>,</span> <span class=n>tc</span><span class=p>)</span>
             <span class=n>v</span> <span class=o>+=</span> <span class=n>dv</span>
-            <span class=k>if</span> <span class=n>v</span> <span class=o>&gt;</span> <span class=mf>1.0</span><span class=p>:</span>
-                <span class=n>v</span> <span class=o>=</span> <span class=mi>0</span>
             <span class=n>ptId</span> <span class=o>+=</span> <span class=mi>1</span>
         <span class=n>u</span> <span class=o>-=</span> <span class=n>du</span>
-        <span class=k>if</span> <span class=n>u</span> <span class=o>&lt;</span> <span class=mf>0.0</span><span class=p>:</span>
-            <span class=n>u</span> <span class=o>=</span> <span class=mi>1</span>
     <span class=n>pd</span><span class=o>.</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>.</span><span class=n>SetTCoords</span><span class=p>(</span><span class=n>tCoords</span><span class=p>)</span>
     <span class=k>return</span> <span class=n>pd</span>
 

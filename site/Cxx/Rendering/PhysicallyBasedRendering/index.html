@@ -74,6 +74,7 @@ function registerListener(event, func) {
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkParametricBoy.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkParametricFunctionSource.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkParametricMobius.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkParametricRandomHills.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkParametricTorus.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPointData.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPolyData.h&gt;</span><span class=cp></span>
@@ -130,6 +131,7 @@ function registerListener(event, func) {
 <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>GetBoy</span><span class=p>();</span>
 <span class=hll><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>GetMobius</span><span class=p>();</span>
 </span><span class=hll><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>GetSphere</span><span class=p>();</span>
+</span><span class=hll><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>GetRandomHills</span><span class=p>();</span>
 </span><span class=hll><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>GetTorus</span><span class=p>();</span>
 </span><span class=hll><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>GetCube</span><span class=p>();</span>
 </span><span class=hll>
@@ -324,7 +326,8 @@ function registerListener(event, func) {
                  <span class=n>desiredSurface</span><span class=p>.</span><span class=n>begin</span><span class=p>(),</span>
                  <span class=p>[](</span><span class=kt>char</span> <span class=n>c</span><span class=p>)</span> <span class=p>{</span> <span class=k>return</span> <span class=n>std</span><span class=o>::</span><span class=n>tolower</span><span class=p>(</span><span class=n>c</span><span class=p>);</span> <span class=p>});</span>
   <span class=n>std</span><span class=o>::</span><span class=n>map</span><span class=o>&lt;</span><span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=p>,</span> <span class=kt>int</span><span class=o>&gt;</span> <span class=n>availableSurfaces</span> <span class=o>=</span> <span class=p>{</span>
-      <span class=p>{</span><span class=s>&quot;boy&quot;</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span> <span class=p>{</span><span class=s>&quot;mobius&quot;</span><span class=p>,</span> <span class=mi>1</span><span class=p>},</span> <span class=p>{</span><span class=s>&quot;torus&quot;</span><span class=p>,</span> <span class=mi>2</span><span class=p>},</span> <span class=p>{</span><span class=s>&quot;sphere&quot;</span><span class=p>,</span> <span class=mi>3</span><span class=p>},</span> <span class=p>{</span><span class=s>&quot;cube&quot;</span><span class=p>,</span> <span class=mi>4</span><span class=p>}};</span>
+      <span class=p>{</span><span class=s>&quot;boy&quot;</span><span class=p>,</span> <span class=mi>0</span><span class=p>},</span>   <span class=p>{</span><span class=s>&quot;mobius&quot;</span><span class=p>,</span> <span class=mi>1</span><span class=p>},</span> <span class=p>{</span><span class=s>&quot;randomhills&quot;</span><span class=p>,</span> <span class=mi>2</span><span class=p>},</span>
+      <span class=p>{</span><span class=s>&quot;torus&quot;</span><span class=p>,</span> <span class=mi>3</span><span class=p>},</span> <span class=p>{</span><span class=s>&quot;sphere&quot;</span><span class=p>,</span> <span class=mi>4</span><span class=p>},</span> <span class=p>{</span><span class=s>&quot;cube&quot;</span><span class=p>,</span> <span class=mi>5</span><span class=p>}};</span>
   <span class=k>if</span> <span class=p>(</span><span class=n>availableSurfaces</span><span class=p>.</span><span class=n>find</span><span class=p>(</span><span class=n>desiredSurface</span><span class=p>)</span> <span class=o>==</span> <span class=n>availableSurfaces</span><span class=p>.</span><span class=n>end</span><span class=p>())</span>
   <span class=p>{</span>
     <span class=n>desiredSurface</span> <span class=o>=</span> <span class=s>&quot;boy&quot;</span><span class=p>;</span>
@@ -336,12 +339,15 @@ function registerListener(event, func) {
     <span class=n>source</span> <span class=o>=</span> <span class=n>GetMobius</span><span class=p>();</span>
     <span class=k>break</span><span class=p>;</span>
   <span class=k>case</span> <span class=mi>2</span><span class=o>:</span>
-    <span class=n>source</span> <span class=o>=</span> <span class=n>GetTorus</span><span class=p>();</span>
+    <span class=n>source</span> <span class=o>=</span> <span class=n>GetRandomHills</span><span class=p>();</span>
     <span class=k>break</span><span class=p>;</span>
   <span class=k>case</span> <span class=mi>3</span><span class=o>:</span>
-    <span class=n>source</span> <span class=o>=</span> <span class=n>GetSphere</span><span class=p>();</span>
+    <span class=n>source</span> <span class=o>=</span> <span class=n>GetTorus</span><span class=p>();</span>
     <span class=k>break</span><span class=p>;</span>
   <span class=k>case</span> <span class=mi>4</span><span class=o>:</span>
+    <span class=n>source</span> <span class=o>=</span> <span class=n>GetSphere</span><span class=p>();</span>
+    <span class=k>break</span><span class=p>;</span>
+  <span class=k>case</span> <span class=mi>5</span><span class=o>:</span>
     <span class=n>source</span> <span class=o>=</span> <span class=n>GetCube</span><span class=p>();</span>
     <span class=k>break</span><span class=p>;</span>
   <span class=k>case</span> <span class=mi>0</span><span class=o>:</span>
@@ -531,11 +537,15 @@ function registerListener(event, func) {
         <span class=s>&quot;, texturing and a skybox.</span><span class=se>\n\n</span><span class=s>&quot;</span>
      <span class=o>&lt;&lt;</span> <span class=s>&quot;positional arguments:</span><span class=se>\n</span><span class=s>&quot;</span>
      <span class=o>&lt;&lt;</span> <span class=s>&quot;  path         The path to the cubemap files e.g. skyboxes/skybox2/</span><span class=se>\n</span><span class=s>&quot;</span>
-     <span class=o>&lt;&lt;</span> <span class=s>&quot;  material_fn  The path to the material texture file e.g. vtk_Material.png</span><span class=se>\n</span><span class=s>&quot;</span>
-<span class=hll>     <span class=o>&lt;&lt;</span> <span class=s>&quot;  albedo_fn    The path to the albedo (base colour) texture file e.g. vtk_Base_Color.png</span><span class=se>\n</span><span class=s>&quot;</span>
-</span><span class=hll>     <span class=o>&lt;&lt;</span> <span class=s>&quot;  normal_fn    The path to the normal texture file e.g. vtk_Normal.png</span><span class=se>\n</span><span class=s>&quot;</span>
-</span><span class=hll>     <span class=o>&lt;&lt;</span> <span class=s>&quot;  emissive_fn  The path to the emissive texture file e.g. vtk_dark_bkg.png</span><span class=se>\n</span><span class=s>&quot;</span>
-</span><span class=hll>     <span class=o>&lt;&lt;</span> <span class=s>&quot;  surface      The surface to use. Boy&#39;s surface is the default.</span><span class=se>\n\n</span><span class=s>&quot;</span>
+     <span class=o>&lt;&lt;</span> <span class=s>&quot;  material_fn  The path to the material texture file e.g. &quot;</span>
+        <span class=s>&quot;vtk_Material.png</span><span class=se>\n</span><span class=s>&quot;</span>
+<span class=hll>     <span class=o>&lt;&lt;</span> <span class=s>&quot;  albedo_fn    The path to the albedo (base colour) texture file e.g. &quot;</span>
+</span>        <span class=s>&quot;vtk_Base_Color.png</span><span class=se>\n</span><span class=s>&quot;</span>
+<span class=hll>     <span class=o>&lt;&lt;</span> <span class=s>&quot;  normal_fn    The path to the normal texture file e.g. &quot;</span>
+</span>        <span class=s>&quot;vtk_Normal.png</span><span class=se>\n</span><span class=s>&quot;</span>
+<span class=hll>     <span class=o>&lt;&lt;</span> <span class=s>&quot;  emissive_fn  The path to the emissive texture file e.g. &quot;</span>
+</span>        <span class=s>&quot;vtk_dark_bkg.png</span><span class=se>\n</span><span class=s>&quot;</span>
+<span class=hll>     <span class=o>&lt;&lt;</span> <span class=s>&quot;  surface      The surface to use. Boy&#39;s surface is the default.</span><span class=se>\n\n</span><span class=s>&quot;</span>
 </span>     <span class=o>&lt;&lt;</span> <span class=s>&quot;Physically based rendering sets color, metallicity and roughness of &quot;</span>
         <span class=s>&quot;the object.</span><span class=se>\n</span><span class=s>&quot;</span>
      <span class=o>&lt;&lt;</span> <span class=s>&quot;Image based lighting uses a cubemap texture to specify the &quot;</span>
@@ -622,6 +632,40 @@ function registerListener(event, func) {
   <span class=k>return</span> <span class=n>transformFilter</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>();</span>
 <span class=p>}</span>
 
+<span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>GetRandomHills</span><span class=p>()</span>
+<span class=hll><span class=p>{</span>
+</span>  <span class=k>auto</span> <span class=n>uResolution</span> <span class=o>=</span> <span class=mi>51</span><span class=p>;</span>
+  <span class=k>auto</span> <span class=n>vResolution</span> <span class=o>=</span> <span class=mi>51</span><span class=p>;</span>
+  <span class=k>auto</span> <span class=n>surface</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkParametricRandomHills</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>  <span class=n>surface</span><span class=o>-&gt;</span><span class=n>SetRandomSeed</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span>
+</span>  <span class=n>surface</span><span class=o>-&gt;</span><span class=n>SetNumberOfHills</span><span class=p>(</span><span class=mi>30</span><span class=p>);</span>
+  <span class=c1>// If you want a plane</span>
+  <span class=c1>// surface-&gt;SetHillAmplitude(0);</span>
+
+  <span class=k>auto</span> <span class=n>source</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkParametricFunctionSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>  <span class=n>source</span><span class=o>-&gt;</span><span class=n>SetUResolution</span><span class=p>(</span><span class=n>uResolution</span><span class=p>);</span>
+</span>  <span class=n>source</span><span class=o>-&gt;</span><span class=n>SetVResolution</span><span class=p>(</span><span class=n>vResolution</span><span class=p>);</span>
+  <span class=n>source</span><span class=o>-&gt;</span><span class=n>SetParametricFunction</span><span class=p>(</span><span class=n>surface</span><span class=p>);</span>
+  <span class=n>source</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
+
+  <span class=c1>// Build the tcoords</span>
+  <span class=k>auto</span> <span class=n>pd</span> <span class=o>=</span> <span class=n>UVTcoords</span><span class=p>(</span><span class=n>uResolution</span><span class=p>,</span> <span class=n>vResolution</span><span class=p>,</span> <span class=n>source</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>());</span>
+  <span class=c1>// Now the tangents</span>
+  <span class=k>auto</span> <span class=n>tangents</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataTangents</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>  <span class=n>tangents</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>pd</span><span class=p>);</span>
+</span>  <span class=n>tangents</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
+
+  <span class=k>auto</span> <span class=n>transform</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>  <span class=n>transform</span><span class=o>-&gt;</span><span class=n>RotateZ</span><span class=p>(</span><span class=mf>180.0</span><span class=p>);</span>
+</span>  <span class=n>transform</span><span class=o>-&gt;</span><span class=n>RotateX</span><span class=p>(</span><span class=mf>90.0</span><span class=p>);</span>
+  <span class=k>auto</span> <span class=n>transformFilter</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformPolyDataFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>  <span class=n>transformFilter</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>tangents</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+</span>  <span class=n>transformFilter</span><span class=o>-&gt;</span><span class=n>SetTransform</span><span class=p>(</span><span class=n>transform</span><span class=p>);</span>
+  <span class=n>transformFilter</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
+
+  <span class=k>return</span> <span class=n>transformFilter</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>();</span>
+<span class=p>}</span>
+
 <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>GetTorus</span><span class=p>()</span>
 <span class=hll><span class=p>{</span>
 </span>  <span class=k>auto</span> <span class=n>uResolution</span> <span class=o>=</span> <span class=mi>51</span><span class=p>;</span>
@@ -692,32 +736,24 @@ function registerListener(event, func) {
   <span class=kt>float</span> <span class=n>v0</span> <span class=o>=</span> <span class=mf>0.0</span><span class=p>;</span>
   <span class=kt>float</span> <span class=n>du</span> <span class=o>=</span> <span class=mf>1.0</span> <span class=o>/</span> <span class=p>(</span><span class=n>uResolution</span> <span class=o>-</span> <span class=mi>1</span><span class=p>);</span>
   <span class=kt>float</span> <span class=n>dv</span> <span class=o>=</span> <span class=mf>1.0</span> <span class=o>/</span> <span class=p>(</span><span class=n>vResolution</span> <span class=o>-</span> <span class=mi>1</span><span class=p>);</span>
-  <span class=kt>float</span> <span class=n>u</span> <span class=o>=</span> <span class=n>u0</span><span class=p>;</span>
-  <span class=kt>float</span> <span class=n>v</span> <span class=o>=</span> <span class=n>v0</span><span class=p>;</span>
   <span class=n>vtkIdType</span> <span class=n>numPts</span> <span class=o>=</span> <span class=n>pd</span><span class=o>-&gt;</span><span class=n>GetNumberOfPoints</span><span class=p>();</span>
 <span class=hll>  <span class=k>auto</span> <span class=n>tCoords</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span><span class=hll>  <span class=n>tCoords</span><span class=o>-&gt;</span><span class=n>SetNumberOfComponents</span><span class=p>(</span><span class=mi>2</span><span class=p>);</span>
 </span>  <span class=n>tCoords</span><span class=o>-&gt;</span><span class=n>SetNumberOfTuples</span><span class=p>(</span><span class=n>numPts</span><span class=p>);</span>
   <span class=n>tCoords</span><span class=o>-&gt;</span><span class=n>SetName</span><span class=p>(</span><span class=s>&quot;Texture Coordinates&quot;</span><span class=p>);</span>
   <span class=n>vtkIdType</span> <span class=n>ptId</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
-<span class=hll>  <span class=k>for</span> <span class=p>(</span><span class=k>auto</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>uResolution</span><span class=p>;</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
-</span>  <span class=p>{</span>
+<span class=hll>  <span class=kt>float</span> <span class=n>u</span> <span class=o>=</span> <span class=n>u0</span><span class=p>;</span>
+</span>  <span class=k>for</span> <span class=p>(</span><span class=k>auto</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>uResolution</span><span class=p>;</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
+  <span class=p>{</span>
+    <span class=kt>float</span> <span class=n>v</span> <span class=o>=</span> <span class=n>v0</span><span class=p>;</span>
     <span class=k>for</span> <span class=p>(</span><span class=k>auto</span> <span class=n>j</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>j</span> <span class=o>&lt;</span> <span class=n>vResolution</span><span class=p>;</span> <span class=o>++</span><span class=n>j</span><span class=p>)</span>
     <span class=p>{</span>
       <span class=kt>float</span> <span class=n>tc</span><span class=p>[</span><span class=mi>2</span><span class=p>]{</span><span class=n>u</span><span class=p>,</span> <span class=n>v</span><span class=p>};</span>
       <span class=n>tCoords</span><span class=o>-&gt;</span><span class=n>SetTuple</span><span class=p>(</span><span class=n>ptId</span><span class=p>,</span> <span class=n>tc</span><span class=p>);</span>
       <span class=n>v</span> <span class=o>+=</span> <span class=n>dv</span><span class=p>;</span>
-      <span class=k>if</span> <span class=p>(</span><span class=n>v</span> <span class=o>&gt;</span> <span class=mf>1.0</span><span class=p>)</span>
-      <span class=p>{</span>
-        <span class=n>v</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
-      <span class=p>}</span>
       <span class=n>ptId</span><span class=o>++</span><span class=p>;</span>
     <span class=p>}</span>
     <span class=n>u</span> <span class=o>-=</span> <span class=n>du</span><span class=p>;</span>
-    <span class=k>if</span> <span class=p>(</span><span class=n>u</span> <span class=o>&lt;</span> <span class=mf>0.0</span><span class=p>)</span>
-    <span class=p>{</span>
-      <span class=n>u</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
-    <span class=p>}</span>
   <span class=p>}</span>
   <span class=n>pd</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetTCoords</span><span class=p>(</span><span class=n>tCoords</span><span class=p>);</span>
   <span class=k>return</span> <span class=n>pd</span><span class=p>;</span>
@@ -786,9 +822,12 @@ function registerListener(event, func) {
   <span class=k>auto</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
   <span class=k>for</span> <span class=p>(</span><span class=k>auto</span> <span class=k>const</span><span class=o>&amp;</span> <span class=nl>fn</span> <span class=p>:</span> <span class=n>fns</span><span class=p>)</span>
   <span class=p>{</span>
-    <span class=k>auto</span> <span class=n>imgReader</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkJPEGReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-<span class=hll>    <span class=n>imgReader</span><span class=o>-&gt;</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>fn</span><span class=p>.</span><span class=n>c_str</span><span class=p>());</span>
-</span>
+    <span class=c1>// Read the images</span>
+    <span class=k>auto</span> <span class=n>readerFactory</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageReader2Factory</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageReader2</span><span class=o>&gt;</span> <span class=n>imgReader</span><span class=p>;</span>
+</span><span class=hll>    <span class=n>imgReader</span><span class=p>.</span><span class=n>TakeReference</span><span class=p>(</span><span class=n>readerFactory</span><span class=o>-&gt;</span><span class=n>CreateImageReader2</span><span class=p>(</span><span class=n>fn</span><span class=p>.</span><span class=n>c_str</span><span class=p>()));</span>
+</span>    <span class=n>imgReader</span><span class=o>-&gt;</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>fn</span><span class=p>.</span><span class=n>c_str</span><span class=p>());</span>
+
     <span class=k>auto</span> <span class=n>flip</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageFlip</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 <span class=hll>    <span class=n>flip</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>imgReader</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
 </span>    <span class=n>flip</span><span class=o>-&gt;</span><span class=n>SetFilteredAxis</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span> <span class=c1>// flip y axis</span>
