@@ -22,6 +22,10 @@
 
 #include <vtkMath.h>
 
+#ifdef VTK_CELL_ARRAY_V2
+#include <vtkCellArrayIterator.h>
+#endif // VTK_CELL_ARRAY_V2
+
 int main(int argc, char* argv[])
 {
   int pointThreshold = 10;
@@ -110,6 +114,43 @@ int main(int argc, char* argv[])
   labelScalars->SetNumberOfComponents(1);
   labelScalars->SetName("Isovalues");
 
+#ifdef VTK_CELL_ARRAY_V2
+
+  // Newer versions of vtkCellArray prefer local iterators:
+  auto cellIter = vtk::TakeSmartPointer(cells->NewIterator());
+  for (cellIter->GoToFirstCell();
+       !cellIter->IsDoneWithTraversal();
+       cellIter->GoToNextCell())
+  {
+    vtkIdList *cell = cellIter->GetCurrentCell();
+    if (cell->GetNumberOfIds() < pointThreshold)
+    {
+      continue;
+    }
+    std::cout << "Line " << cellIter->GetCurrentCellId() << ": " << std::endl;
+
+    // Compute the point id to hold the label
+    // Mid point or a random point
+    // const vtkIdType samplePtIdx = cell->GetNumberOfIds() / 2;
+    const vtkIdType samplePtIdx =
+        static_cast<vtkIdType>(vtkMath::Random(0, cell->GetNumberOfIds()));
+
+    auto midPointId = cell->GetId(samplePtIdx);
+
+    double midPoint[3];
+    points->GetPoint(midPointId, midPoint);
+    std::cout << "\tmidPoint is " << midPointId << " with coordinate "
+              << "(" << midPoint[0] << ", " << midPoint[1] << ", "
+              << midPoint[2] << ")"
+              << " and value " << scalars->GetTuple1(midPointId) << std::endl;
+    labelPoints->InsertNextPoint(midPoint);
+    labelScalars->InsertNextTuple1(scalars->GetTuple1(midPointId));
+  }
+
+#else // VTK_CELL_ARRAY_V2
+
+  // Older implementations of vtkCellArray use internal iterator APIs (not
+  // thread safe):
   vtkIdType* indices;
   vtkIdType numberOfPoints;
   unsigned int lineCount = 0;
@@ -137,6 +178,9 @@ int main(int argc, char* argv[])
     labelPoints->InsertNextPoint(midPoint);
     labelScalars->InsertNextTuple1(scalars->GetTuple1(midPointId));
   }
+
+#endif // VTK_CELL_ARRAY_V2
+
   labelPolyData->SetPoints(labelPoints);
   labelPolyData->GetPointData()->SetScalars(labelScalars);
 

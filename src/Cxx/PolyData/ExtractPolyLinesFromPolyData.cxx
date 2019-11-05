@@ -15,6 +15,10 @@
 #include <vtkNamedColors.h>
 #include <vtkColor.h>
 
+#ifdef VTK_CELL_ARRAY_V2
+#include <vtkCellArrayIterator.h>
+#endif // VTK_CELL_ARRAY_V2
+
 int main (int, char *[])
 {
   // Define colors for example
@@ -102,6 +106,33 @@ int main (int, char *[])
             << numberOfLines
             << " lines in the polydata" << std::endl;
 
+
+#ifdef VTK_CELL_ARRAY_V2
+
+  // Newer versions of vtkCellArray prefer local iterators:
+  auto cellIter = vtk::TakeSmartPointer(cells->NewIterator());
+  for (cellIter->GoToFirstCell();
+       !cellIter->IsDoneWithTraversal();
+       cellIter->GoToNextCell())
+  {
+    std::cout << "Line " << cellIter->GetCurrentCellId() << ":\n";
+
+    vtkIdList *cell = cellIter->GetCurrentCell();
+    for (vtkIdType i = 0; i < cell->GetNumberOfIds(); ++i)
+    {
+      double point[3];
+      points->GetPoint(cell->GetId(i), point);
+      std::cout << "\t("
+                << point[0] << ", "
+                << point[1] << ", "
+                << point[2] << ")" << std::endl;
+    }
+  }
+
+#else // VTK_CELL_ARRAY_V2
+
+  // Older implementations of vtkCellArray use internal iterator APIs (not
+  // thread safe):
   vtkIdType *indices;
   vtkIdType numberOfPoints;
   unsigned int lineCount = 0;
@@ -120,5 +151,8 @@ int main (int, char *[])
                 << point[2] << ")" << std::endl;
     }
   }
+
+#endif // VTK_CELL_ARRAY_V2
+
   return EXIT_SUCCESS;
 }

@@ -347,18 +347,21 @@ vtkSmartPointer<vtkUnstructuredGrid> MakePolyhedron()
       {19, 18, 17, 16, 15}
       };
 
-  vtkSmartPointer<vtkCellArray> dodechedronFaces =
-    vtkSmartPointer<vtkCellArray>::New();
+  vtkNew<vtkIdList> dodechedronFaces;
   for (int i = 0; i < numberOfFaces; i++)
   {
-    dodechedronFaces->InsertNextCell(numberOfFaceVertices, dodechedronFace[i]);
+    dodechedronFaces->InsertNextId(numberOfFaceVertices);
+    for (int j = 0; j < numberOfFaceVertices; ++j)
+    {
+      dodechedronFaces->InsertNextId(dodechedronFace[i][j]);
+    }
   }
 
   vtkSmartPointer<vtkUnstructuredGrid> uGrid =
     vtkSmartPointer<vtkUnstructuredGrid>::New();
   uGrid->InsertNextCell(VTK_POLYHEDRON,
           numberOfVertices, dodechedronPointsIds,
-        numberOfFaces, dodechedronFaces->GetPointer());
+        numberOfFaces, dodechedronFaces->GetPointer(0));
   uGrid->SetPoints(points);
 
   return uGrid;

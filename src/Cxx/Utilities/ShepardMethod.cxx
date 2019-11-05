@@ -12,6 +12,7 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkShepardMethod.h>
 #include <vtkSmartPointer.h>
+#include <vtkUnsignedCharArray.h>
 #include <vtkVertexGlyphFilter.h>
 
 // For compatibility with new VTK generic data arrays
