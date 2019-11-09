@@ -5,6 +5,7 @@
 #include <vtkPointData.h>
 #include <vtkPoints.h>
 #include <vtkPolyData.h>
+#include <vtkUnsignedCharArray.h>
 
 #include <vtkCell.h>
 #include <vtkCellData.h>
