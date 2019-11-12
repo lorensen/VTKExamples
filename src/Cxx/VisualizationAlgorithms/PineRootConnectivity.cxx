@@ -1,5 +1,9 @@
 #include <vtkActor.h>
 #include <vtkCamera.h>
+#include <vtkCellArray.h>
+#ifdef VTK_CELL_ARRAY_V2
+#include <vtkCellArrayIterator.h>
+#endif // VTK_CELL_ARRAY_V2
 #include <vtkDataSetMapper.h>
 #include <vtkMCubesReader.h>
 #include <vtkNamedColors.h>
@@ -11,6 +15,7 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 
 int main(int argc, char* argv[])
 {
@@ -26,15 +31,39 @@ int main(int argc, char* argv[])
   }
 
   /**
-  * Count the triangles in the polydata.
-  * @param pd: vtkPolyData.
-  * @return The number of triangles.
-  */
+   * Count the triangles in the polydata.
+   * @param pd: vtkPolyData.
+   * @return The number of triangles.
+   */
   auto NumberofTriangles = [](vtkPolyData* pd) {
     vtkCellArray* cells = pd->GetPolys();
     vtkIdType npts = 0;
-    vtkIdType* pts;
     auto numOfTriangles = 0;
+#ifdef VTK_CELL_ARRAY_V2
+
+    // Newer versions of vtkCellArray prefer local iterators:
+    std::cout << pd->GetNumberOfPolys() << std::endl;
+    auto cellIter = vtk::TakeSmartPointer(cells->NewIterator());
+    for (cellIter->GoToFirstCell(); !cellIter->IsDoneWithTraversal();
+         cellIter->GoToNextCell())
+    {
+      auto cell = cellIter->GetCurrentCell();
+      if (cell == nullptr)
+      {
+        break;
+      }
+      // If a cell has three points it is a triangle.
+      if (cell->GetNumberOfIds() == 3)
+      {
+        numOfTriangles++;
+      }
+    }
+
+#else  // VTK_CELL_ARRAY_V2
+
+    // Older implementations of vtkCellArray use internal iterator APIs (not
+    // thread safe):
+    vtkIdType* pts;
     for (auto i = 0; i < pd->GetNumberOfPolys(); ++i)
     {
       int c = cells->GetNextCell(npts, pts);
@@ -48,6 +77,8 @@ int main(int argc, char* argv[])
         numOfTriangles++;
       }
     }
+#endif // VTK_CELL_ARRAY_V2
+
     return numOfTriangles;
   };
 
@@ -59,11 +90,11 @@ int main(int argc, char* argv[])
   }
 
   vtkSmartPointer<vtkNamedColors> colors =
-    vtkSmartPointer<vtkNamedColors>::New();
+      vtkSmartPointer<vtkNamedColors>::New();
 
   // Create the pipeline.
   vtkSmartPointer<vtkMCubesReader> reader =
-    vtkSmartPointer<vtkMCubesReader>::New();
+      vtkSmartPointer<vtkMCubesReader>::New();
   reader->SetFileName(fileName.c_str());
   reader->FlipNormalsOff();
   if (!noConnectivity)
@@ -75,7 +106,7 @@ int main(int argc, char* argv[])
   }
 
   vtkSmartPointer<vtkPolyDataConnectivityFilter> connect =
-    vtkSmartPointer<vtkPolyDataConnectivityFilter>::New();
+      vtkSmartPointer<vtkPolyDataConnectivityFilter>::New();
   connect->SetInputConnection(reader->GetOutputPort());
   connect->SetExtractionModeToLargestRegion();
   if (!noConnectivity)
@@ -83,13 +114,14 @@ int main(int argc, char* argv[])
     connect->Update();
     std::cout << "After Connectivity." << std::endl;
     // Note the use of dynamic_cast<vtkPolyData*> here.
-    std::cout << "There are: " << NumberofTriangles(dynamic_cast<vtkPolyData*>(
-                                    connect->GetOutput()))
+    std::cout << "There are: "
+              << NumberofTriangles(
+                     dynamic_cast<vtkPolyData*>(connect->GetOutput()))
               << " triangles." << std::endl;
   }
 
   vtkSmartPointer<vtkDataSetMapper> isoMapper =
-    vtkSmartPointer<vtkDataSetMapper>::New();
+      vtkSmartPointer<vtkDataSetMapper>::New();
   if (noConnectivity)
   {
     isoMapper->SetInputConnection(reader->GetOutputPort());
@@ -105,10 +137,10 @@ int main(int argc, char* argv[])
 
   // Get an outline of the data set for context.
   vtkSmartPointer<vtkOutlineFilter> outline =
-    vtkSmartPointer<vtkOutlineFilter>::New();
+      vtkSmartPointer<vtkOutlineFilter>::New();
   outline->SetInputConnection(reader->GetOutputPort());
   vtkSmartPointer<vtkPolyDataMapper> outlineMapper =
-    vtkSmartPointer<vtkPolyDataMapper>::New();
+      vtkSmartPointer<vtkPolyDataMapper>::New();
   outlineMapper->SetInputConnection(outline->GetOutputPort());
   vtkSmartPointer<vtkActor> outlineActor = vtkSmartPointer<vtkActor>::New();
   outlineActor->SetMapper(outlineMapper);
@@ -117,10 +149,10 @@ int main(int argc, char* argv[])
   // Create the Renderer, RenderWindow and RenderWindowInteractor.
   vtkSmartPointer<vtkRenderer> ren = vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renWin =
-    vtkSmartPointer<vtkRenderWindow>::New();
+      vtkSmartPointer<vtkRenderWindow>::New();
   renWin->AddRenderer(ren);
   vtkSmartPointer<vtkRenderWindowInteractor> iren =
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+      vtkSmartPointer<vtkRenderWindowInteractor>::New();
   iren->SetRenderWindow(renWin);
 
   // Add the actors to the renderer, set the background and size.
