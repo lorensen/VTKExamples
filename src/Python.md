@@ -204,6 +204,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Glyph2D](/Python/Filtering/Glyph2D) | vtkGlyph2D |
 [Glyph3D](/Python/Filtering/Glyph3D) | vtkGlyph3D |
 [ImplicitPolyDataDistance](/Python/PolyData/ImplicitPolyDataDistance) | vtkImplicitPolyDataDistance |
+[IterateOverLines](/Python/PolyData/IterateOverLines) | vtkCellArray | Iterate through the lines of a PolyData.
 [IterativeClosestPoints](/Python/Filtering/IterativeClosestPoints) | vtkIterativeClosestPointTransform |
 [LineOnMesh](/Python/DataManipulation/LineOnMesh) | vtkCellLocator vtkParametricSpline |
 [MeshLabelImageColor](/Python/DataManipulation/MeshLabelImageColor) | vtkDiscreteMarchingCubes |
