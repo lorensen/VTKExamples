@@ -196,6 +196,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [CombinePolyData](/Python/Filtering/CombinePolyData) | vtkAppendPolyData | This example combines Polydata objects, and displays the result to the screen.
 [ConnectivityFilter](/Python/Filtering/ConnectivityFilter) | vtkConnectivityFilter | Color any dataset type based on connectivity.
 [CurvaturesDemo](/Python/PolyData/CurvaturesDemo) | vtkCurvatures  vtkColorTransferFunction | Demonstrates how to get the Gaussian and Mean curvatures of a surface.
+[ExtractPolyLinesFromPolyData](/Python/PolyData/ExtractPolyLinesFromPolyData) | vtkPolyData | Extract polylines from polydata. 
 [ExtractSelection](/Python/PolyData/ExtractSelection) | vtkExtractSelection |
 [ExtractSelectionCells](/Python/PolyData/ExtractSelectionCells) | vtkExtractSelection | Extract cell, select cell.
 [FilledPolygon](/Python/PolyData/FilledPolygon) | vtkCutter |
