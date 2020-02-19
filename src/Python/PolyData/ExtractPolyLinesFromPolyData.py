@@ -78,7 +78,7 @@ def main():
         print("Line {0}:".format(lineCount))
         for i in range(indices.GetNumberOfIds()):
             point = points.GetPoint(indices.GetId(i))
-            print("\t({0} ,{1}, {2})".format(point[0], point[1], point[2]))
+            print("\t({0:0.6f} ,{1:0.6f}, {2:0.6f})".format(point[0], point[1], point[2]))
         lineCount += 1
 
 if __name__ == "__main__":
