@@ -221,7 +221,7 @@ def vtk_version_ok(major, minor, build):
         ver = vtk.vtkVersion()
         vtk_version_number = 10000000000 * ver.GetVTKMajorVersion() + 100000000 * ver.GetVTKMinorVersion() \
                              + ver.GetVTKBuildVersion()
-    if vtk_version_number <= needed_version:
+    if vtk_version_number >= needed_version:
         return True
     else:
         return False
