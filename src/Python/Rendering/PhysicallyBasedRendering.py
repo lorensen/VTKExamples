@@ -166,7 +166,10 @@ def main():
     actor.GetProperty().SetNormalScale(normalScale)
 
     renderer.UseImageBasedLightingOn()
-    renderer.SetEnvironmentCubeMap(cubemap)
+    if vtk.VTK_VERSION_NUMBER >= 90000000000:
+        renderer.SetEnvironmentTexture(cubemap)
+    else:
+        renderer.SetEnvironmentCubeMap(cubemap)
     renderer.SetBackground(colors.GetColor3d("BkgColor"))
     renderer.AddActor(actor)
 

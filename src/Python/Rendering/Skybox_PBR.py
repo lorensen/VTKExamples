@@ -103,7 +103,10 @@ def main():
     actor.SetMapper(mapper)
 
     renderer.UseImageBasedLightingOn()
-    renderer.SetEnvironmentCubeMap(cubemap)
+    if vtk.VTK_VERSION_NUMBER >= 90000000000:
+        renderer.SetEnvironmentTexture(cubemap)
+    else:
+        renderer.SetEnvironmentCubeMap(cubemap)
     actor.GetProperty().SetInterpolationToPBR()
 
     # configure the basic properties
