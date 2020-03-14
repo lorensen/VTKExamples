@@ -44,7 +44,7 @@
 #include <vector>
 
 #if VTK_VERSION_NUMBER >= 90000000000ULL
-#define VTK_VER_GT_8_90 1
+#define VTK_VER_GE_90 1
 #endif
 
 namespace {
@@ -282,7 +282,7 @@ int main(int argc, char* argv[])
   actor->SetMapper(mapper);
 
   renderer->UseImageBasedLightingOn();
-#if VTK_VER_GT_8_90
+#if VTK_VER_GE_90
   renderer->SetEnvironmentTexture(cubemap);
 #else
   renderer->SetEnvironmentCubeMap(cubemap);
