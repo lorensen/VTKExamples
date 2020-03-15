@@ -11,15 +11,15 @@ fi
 REPO=$1
 VTK_SOURCE_DIR=$2
 # Make sure the repo site is up
-echo "Synchronizing the VTKExamples site with the repository."
+# echo "Synchronizing the VTKExamples site with the repository."
 HOST=www.github.com
-echo "0) Can we access the repo?"
-ping -c 1 $HOST &> /dev/null
-if test "${?}" != 0
-  then
-  echo "VTKExamples: $HOST is not accessible. Try again later"
-  exit 1
-fi
+# echo "0) Can we access the repo?"
+# ping -c 1 $HOST &> /dev/null
+# if test "${?}" != 0
+#   then
+#   echo "VTKExamples: $HOST is not accessible. Try again later"
+#   exit 1
+# fi
 
 echo "1) Pull updates from master repositories"
 git pull
