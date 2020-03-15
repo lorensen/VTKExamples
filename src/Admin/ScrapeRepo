@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # imports
 from __future__ import print_function
 import re
@@ -165,7 +165,7 @@ def GetTinyUrl(CacheDict, Url):
         cacheHits = cacheHits + 1
         return CacheDict[Url]
     # tinyOne = tinyurl.create_one(Url)
-    tinyOne = make_tiny.create_one(Url)
+    tinyOne = make_tiny(Url)
     CacheDict[Url] = tinyOne
     cacheMisses = cacheMisses + 1
     print("cache miss: " + Url)
