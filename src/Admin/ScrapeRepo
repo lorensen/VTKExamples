@@ -10,12 +10,30 @@ import hashlib
 import tempfile
 import subprocess
 
+# try:
+#     import tinyurl
+# except:
+#     print("ScrapeRepo: " + "tinyurl package is required but not found.")
+#     print("ScrapeRepo: " + "install with `pip install tinyurl`")
+#     exit(0)
+
 try:
-    import tinyurl
-except:
-    print("ScrapeRepo: " + "tinyurl package is required but not found.")
-    print("ScrapeRepo: " + "install with `pip install tinyurl`")
-    exit(0)
+    from urllib.parse import urlencode
+except ImportError:
+    from urllib import urlencode
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib2 import urlopen
+import sys
+
+
+def make_tiny(url):
+    request_url = ('http://tinyurl.com/api-create.php?' +
+                   urlencode({'url': url}))
+    with contextlib.closing(urlopen(request_url)) as response:
+        return response.read().decode('utf-8')
+
 
 try:
     import markdown
@@ -106,7 +124,7 @@ def GetComponents(CacheDict, VTKSrcDir, srcFile, src):
     rawWhatOutput = subprocess.check_output([RepoDir + '/Admin/WhatModulesVTK.py', VTKSrcDir, srcFile])
     components = ParseWhatModulesVTKOutput(rawWhatOutput)
 
-    CacheDict[str(srcFile)] = sha 
+    CacheDict[str(srcFile)] = sha
     for component in components:
         CacheDict[str(srcFile)] += " " + component
     print("cache miss: ",str(srcFile))
@@ -146,7 +164,8 @@ def GetTinyUrl(CacheDict, Url):
     if Url in CacheDict.keys():
         cacheHits = cacheHits + 1
         return CacheDict[Url]
-    tinyOne = tinyurl.create_one(Url)
+    # tinyOne = tinyurl.create_one(Url)
+    tinyOne = make_tiny.create_one(Url)
     CacheDict[Url] = tinyOne
     cacheMisses = cacheMisses + 1
     print("cache miss: " + Url)
