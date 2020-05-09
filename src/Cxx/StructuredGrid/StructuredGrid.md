@@ -1,4 +1,7 @@
 ### Description
+
 This example reads and writes points into a structured grid.
 
-Required version: You must have the CVS HEAD of VTK as of 2/17/10.
+THe structured grid is colored by point data. However there is n option to color by cell data.
+
+Demonstration code is also provided to list cells and their Ids along with listing point Ids shared between cells.

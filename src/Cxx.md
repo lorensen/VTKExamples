@@ -544,7 +544,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [BlankPoint](/Cxx/StructuredGrid/BlankPoint) | vtkStructuredGrid | Blank a point of a vtkStructuredGrid.
 [GetLinearPointId](/Cxx/StructuredGrid/GetLinearPointId) | vtkStructuredGrid | Get the linear point id of a point in a grid.
 [SGrid](/Cxx/StructuredGrid/SGrid) | vtkStructuredGrid | Creating a structured grid dataset of a semi-cylinder. Vectors are created whose magnitude is proportional to radius and oriented in tangential direction.
-[StructuredGrid](/Cxx/StructuredGrid/StructuredGrid) | vtkStructuredGrid | Structured Grid.
+[StructuredGrid](/Cxx/StructuredGrid/StructuredGrid) | vtkStructuredGrid vtkCellData vtkCellIterator | Reads and writes points into a structured grid. The grid is also colored by point data and how to iterate through the structured grid is demonstrated.
 [StructuredGridOutline](/Cxx/StructuredGrid/StructuredGridOutline) | vtkStructuredGridOutlineFilter | Visualize the outline of a structured grid.
 [VisualizeStructuredGrid](/Cxx/StructuredGrid/VisualizeStructuredGrid) | vtkStructuredGridGeometryFilter | Visualize the points of a structured grid.
 [VisualizeStructuredGridCells](/Cxx/StructuredGrid/VisualizeStructuredGridCells) | vtkShrinkFilter | Visualize the cells of a structured grid.
