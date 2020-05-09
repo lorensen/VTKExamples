@@ -661,7 +661,6 @@ This section includes vtkUnstructuredGrid.
 [TimerLog](/Cxx/Utilities/TimerLog) | vtkTimerLog | Timer log.
 [Variant](/Cxx/Utilities/Variant) | vtkVariant | Convert between data types.
 [Vector](/Cxx/Utilities/Vector) | vtkVector | Mathematical vector class.
-[VersionMacros](/Cxx/Utilities/VersionMacros) | Macro/#define's | Check VTK Version.
 [ViewportBorders](/Cxx/Utilities/ViewportBorders) |  | Draw a border around each viewport.
 [VisualDebugging](/Cxx/Demos/VisualDebugging) |  | Update the screen from inside an algorithm.
 [ZBuffer](/Cxx/Utilities/ZBuffer) | vtkRenderer | zbuffer.
@@ -700,7 +699,6 @@ This section includes vtkUnstructuredGrid.
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[Check VTK Version in CMake](/Cxx/Utilities/CMakeVTKVersionCheck) |  |
 [Check if a specific module is present](/Cxx/CMakeTechniques/CheckForModule) |  |
 
 ## Math Operations
