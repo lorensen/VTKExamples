@@ -86,6 +86,7 @@ if (BUILD_TESTING)
     GLTFImporter
     ImageReader2Factory
     ImportPolyDataScene
+    ImportToExport
     IndividualVRML
     JPEGReader
     JPEGWriter
@@ -132,7 +133,7 @@ if (BUILD_TESTING)
     WriteVTI
     WriteVTU
     )
-  
+
   set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
   set(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
 
@@ -155,15 +156,19 @@ if (BUILD_TESTING)
     TestGenericDataObjectReader ${DATA}/Bunny.vtp)
 
   add_test(${KIT}-GLTFImporterExporter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-     TestGLTFImporter ${TEMP}/GLTFExporter.gltf -V ${DATA}/Baseline/Cxx/IO/TestGLTFImporterExporter.png)
+     TestGLTFImporter ${TEMP}/GLTFExporter.gltf -V ${DATA}/../Baseline/Cxx/IO/TestGLTFImporterExporter.png)
   add_test(${KIT}-GLTFExporter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
      TestGLTFExporter ${TEMP}/GLTFExporter.gltf)
   set_property(TEST IO-GLTFImporterExporter PROPERTY DEPENDS IO-GLTFExporter)
 
   if(GIT_LFS)
     add_test(${KIT}-GLTFImporter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-      TestGLTFImporter ${DATA}/gltf/FlightHelmet/glTF/FlightHelmet.gltf)
+      TestGLTFImporter ${DATA}/glTF/FlightHelmet/glTF/FlightHelmet.gltf)
     endif()
+
+  add_test(${KIT}-ImportToExport ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestImportToExport ${DATA}/iflamingo.3ds iflamingo.obj)
+
   add_test(${KIT}-IndividualVRML ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestIndividualVRML ${DATA}/teapot.wrl teapot)
 
@@ -244,7 +249,7 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-ReadSTL ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestReadSTL ${DATA}/42400-IDGH.stl)
-  
+
   add_test(${KIT}-ReadStructuredGrid ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestReadStructuredGrid ${DATA}/StructuredGrid.vts)
 

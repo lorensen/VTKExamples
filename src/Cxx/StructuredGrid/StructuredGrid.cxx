@@ -65,7 +65,8 @@ int main(int, char*[])
   // Create a grid
   vtkNew<vtkStructuredGrid> structuredGrid;
   // Specify the dimensions of the grid
-  structuredGrid->SetDimensions(nx, ny, nz);
+  structuredGrid->SetDimensions(static_cast<int>(nx), static_cast<int>(ny),
+                                static_cast<int>(nz));
   structuredGrid->SetPoints(points);
   structuredGrid->GetCellData()->SetScalars(cellValues);
   structuredGrid->GetPointData()->SetScalars(pointValues);
