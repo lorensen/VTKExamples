@@ -89,7 +89,7 @@ if (BUILD_TESTING)
     ConvexHull
     Curvatures
     DetermineArrayDataTypes
-    DijkstraGraphGeodesicPath	
+    DijkstraGraphGeodesicPath
     EmbedPointsIntoVolume
     ExternalContour
     GetMiscCellData
@@ -107,6 +107,7 @@ if (BUILD_TESTING)
     PolyDataPointSampler
     PolyDataToImageData
     RemoveVertices
+    ResampleAppendedPolyData
     ShrinkPolyData
     Silhouette
     ThinPlateSplineTransform
@@ -204,6 +205,9 @@ message (STATUS "TestPolyDataBooleanOperationFilter")
 
   add_test(${KIT}-RemoveVertices ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestRemoveVertices ${DATA}/Bunny.vtp)
+
+  add_test(${KIT}-ResampleAppendedPolyData ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestResampleAppendedPolyData -E 20)
 
   add_test(${KIT}-Silhouette ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestSilhouette ${DATA}/cowHead.vtp)
