@@ -118,7 +118,7 @@ if (BUILD_TESTING)
     ReadStructuredGrid
     ReadTIFF
     ReadTextFile
-    ReadUnknownTypeXMLFiel
+    ReadUnknownTypeXMLFile
     ReadUnstructuredGrid
     SimplePointsReader
     StructuredPointsReader
