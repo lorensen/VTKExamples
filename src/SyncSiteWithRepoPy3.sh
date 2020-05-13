@@ -8,8 +8,9 @@
 if [ $# -lt 2 ]
   then
   echo "Usage: SyncSiteWithRepoPy3 REPO_URL VTK_SOURCE_DIR"
-  echo "e.g  : ./src/SyncSiteWithRepo https::/github.com/<username>/VTKExamples /home/<username>/Development/Kitware/src/VTK/"
-  echo "Note  : This is run from the top-level VTKExamples directory"
+  echo "e.g  : ./src/SyncSiteWithRepoPy3.sh https::/github.com/<github_username>/VTKExamples /home/<username>/Development/Kitware/src/VTK/"
+  echo "Note  : This is run from the top-level VTKExamples directory."
+  echo "e.g  : /home/<username>/Development/Kitware/src/VTKExamples/"
   exit 1
 fi
 REPO=$1
