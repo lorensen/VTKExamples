@@ -476,14 +476,15 @@ CacheDict = dict()
 ComponentsDict = dict()
 htmlIdSet = set()
 
-RepoDir= ''
+RepoDir = ''
 DocDir = ''
 RepoURL = ''
 VTKSrcDir = ''
 
+
 #####################################################################
 #  This is the main module.
-def main ():
+def main():
     global cacheHits
     global cacheMisses
     global componentsCacheHits
@@ -506,70 +507,70 @@ def main ():
     global VTKSrcDir
 
     RepoDir, DocDir, RepoURL, VTKSrcDir = get_program_parameters()
-    
+
     # Make sure the wiki docs folder exists
     if not os.path.exists(DocDir):
         os.makedirs(DocDir)
-    
+
     # Baseline top level
     BaselineName = make_path_name(RepoDir, '/Testing/Baseline')
-    
+
     # Load the TinyUrl cache
     CacheFile = make_path_name(RepoDir, '/Admin/TinyUrlCache')
     # CacheDict = dict()
     LoadTinyUrlCache(CacheFile, CacheDict)
-    
+
     # Load the Component cache
     ComponentsCacheFile = make_path_name(RepoDir, '/Admin/ComponentsCache')
     # ComponentsDict = dict()
     LoadComponentsCache(ComponentsCacheFile, ComponentsDict)
-    
+
     # Read the Wiki Templates
     with open(make_path_name(RepoDir, '/Admin/VTKCMakeLists'), 'r') as VTKTemplateFile:
         VTKTemplate = VTKTemplateFile.read()
-    
+
     with open(make_path_name(RepoDir, '/Admin/VTKQtCMakeLists'), 'r') as VTKQtTemplateFile:
         VTKQtTemplate = VTKQtTemplateFile.read()
-    
+
     # Make the reference mtime to be the most recent of the two CMakeLists templates
     refStat1 = os.stat(make_path_name(RepoDir, '/Admin/VTKQtCMakeLists'))
     refStat2 = os.stat(make_path_name(RepoDir, '/Admin/VTKCMakeLists'))
     refMtime = refStat1.st_mtime
     if refStat2.st_mtime > refStat1.st_mtime:
         refMtime = refStat2.st_mtime
-    
+
     # Create a dict to hold code name and page name
     codeToPage = dict()
-    
+
     # Create a dict to hold CMakeLists.txt file
     exampleToCMake = dict()
-    
+
     # Create a dict to hold the file names for each example
     exampleToFileNames = dict()
-    
+
     # Create Snippets directories for Cxx, Python and Java
     if not os.path.exists(make_path_name(DocDir, '/Cxx/Snippets')):
         os.makedirs(make_path_name(DocDir, '/Cxx/Snippets'))
-    
+
     if not os.path.exists(make_path_name(DocDir, '/Python/Snippets')):
         os.makedirs(make_path_name(DocDir, '/Python/Snippets'))
-    
+
     if not os.path.exists(make_path_name(DocDir, '/Java/Snippets')):
         os.makedirs(make_path_name(DocDir, '/Java/Snippets'))
-    
+
     # Add thumbnails and language links to each of the language summary pages, Snippets and Book figures
     AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + '/Cxx.md', DocDir + '/Cxx.md')
     AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + '/Python.md', DocDir + '/Python.md')
     AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + '/CSharp.md', DocDir + '/CSharp.md')
     AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + '/Java.md', DocDir + '/Java.md')
     AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + '/JavaScript.md', DocDir + '/JavaScript.md')
-    
+
     AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + '/Cxx/Snippets.md', DocDir + '/Cxx/Snippets.md')
     AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + '/Python/Snippets.md', DocDir + '/Python/Snippets.md')
     AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + '/Java/Snippets.md', DocDir + '/Java/Snippets.md')
     AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + '/VTKBookFigures.md', DocDir + '/VTKBookFigures.md')
     AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + '/VTKFileFormats.md', DocDir + '/VTKFileFormats.md')
-    
+
     # C++ Snippets
     files = os.listdir(make_path_name(RepoDir + '/Cxx/Snippets'))
     for f in files:
@@ -577,7 +578,7 @@ def main ():
         fromPath = RepoDir + '/Cxx/Snippets/' + snippet + '.md'
         toPath = DocDir + '/Cxx/Snippets/' + snippet + '.md'
         CopyFile(fromPath, toPath)
-    
+
     # Python Snippets
     files = os.listdir(make_path_name(RepoDir + '/Python/Snippets'))
     for f in files:
@@ -585,7 +586,7 @@ def main ():
         fromPath = RepoDir + '/Python/Snippets/' + snippet + '.md'
         toPath = DocDir + '/Python/Snippets/' + snippet + '.md'
         CopyFile(fromPath, toPath)
-    
+
     # Java Snippets
     files = os.listdir(make_path_name(RepoDir + '/Java/Snippets'))
     for f in files:
@@ -593,7 +594,7 @@ def main ():
         fromPath = RepoDir + '/Java/Snippets/' + snippet + '.md'
         toPath = DocDir + '/Java/Snippets/' + snippet + '.md'
         CopyFile(fromPath, toPath)
-    
+
     # Copy favicon.png
     fromPath = make_path_name(DocDir + '/assets')
     toPath = make_path_name(make_path_name(DocDir + '/assets/images'))
@@ -602,22 +603,22 @@ def main ():
     if not os.path.exists(toPath):
         os.makedirs(toPath)
     CopyFile(RepoDir + '/Images/favicon.png', DocDir + '/assets/images/favicon.png')
-    
+
     # Copy repo .md files
     CopyFile(RepoDir + '/index.md', DocDir + '/index.md')
     CopyFile(RepoDir + '/VTKBook.md', DocDir + '/VTKBook.md')
-    
+
     # Copy coverage files
     if not os.path.exists(make_path_name(DocDir + '/Coverage')):
         os.makedirs(make_path_name(DocDir + '/Coverage'))
-    
+
     # Get list of all  examples
     Languages = dict()
     Languages['Cxx'] = '.cxx'
     Languages['Python'] = '.py'
     Languages['Java'] = '.java'
     Languages['CSharp'] = '.cs'
-    
+
     for k in Languages.keys():
         tmp = []
         tmp.append(RepoDir + '/Coverage/' + k + 'VTKClassesNotUsed.md')
@@ -626,7 +627,7 @@ def main ():
         tmp.append(DocDir + '/Coverage/' + k + 'VTKClassesUsed.md')
         CopyFile(tmp[0], tmp[1])
         CopyFile(tmp[2], tmp[3])
-    
+
     # Copy Instructions files
     if not os.path.exists(make_path_name(DocDir + '/Instructions')):
         os.makedirs(make_path_name(DocDir + '/Instructions'))
@@ -636,7 +637,7 @@ def main ():
     CopyFile(RepoDir + '/Instructions/Guidelines.md', DocDir + '/Instructions/Guidelines.md')
     CopyFile(RepoDir + '/Instructions/ConvertingFiguresToExamples.md',
              DocDir + '/Instructions/ConvertingFiguresToExamples.md')
-    
+
     # Copy VTKBook files
     if not os.path.exists(make_path_name(DocDir + '/VTKBook')):
         os.makedirs(make_path_name(DocDir + '/VTKBook'))
@@ -655,7 +656,7 @@ def main ():
     CreateHtmlIds(RepoDir + '/VTKBook/11Chapter11.md')
     CreateHtmlIds(RepoDir + '/VTKBook/12Chapter12.md')
     CreateHtmlIds(RepoDir + '/VTKBook/13Glossary.md')
-    
+
     print('Found', len(htmlIdSet), 'figures with html ids')
     CopyChapterAndAddLinks(RepoDir + '/VTKBook/00Preface.md', DocDir + '/VTKBook/00Preface.md')
     CopyChapterAndAddLinks(RepoDir + '/VTKBook/01Chapter1.md', DocDir + '/VTKBook/01Chapter1.md')
@@ -671,13 +672,13 @@ def main ():
     CopyChapterAndAddLinks(RepoDir + '/VTKBook/11Chapter11.md', DocDir + '/VTKBook/11Chapter11.md')
     CopyChapterAndAddLinks(RepoDir + '/VTKBook/12Chapter12.md', DocDir + '/VTKBook/12Chapter12.md')
     CopyChapterAndAddLinks(RepoDir + '/VTKBook/13Glossary.md', DocDir + '/VTKBook/13Glossary.md')
-    
+
     # Copy VTKBookLaTeX files
     if not os.path.exists(make_path_name(DocDir + '/VTKBookLaTeX')):
         os.makedirs(make_path_name(DocDir + '/VTKBookLaTeX'))
     CopyFile(make_path_name(RepoDir + '/VTKBookLaTeX/VTKTextBook.md'),
              make_path_name(DocDir + '/VTKBookLaTeX/VTKTextBook.md'))
-    
+
     # Scan all Cxx directories and look for extras
     allExtras = set()
     for root, dirs, files in os.walk(RepoDir):
@@ -694,7 +695,7 @@ def main ():
                     line = line.strip()
                     allExtras.add(line)
                 ExtrasFile.close()
-    
+
     for lang, langExt in list(Languages.items()):
         for root, dirs, files in os.walk(RepoDir):
             to_find = os.path.join(RepoDir, lang)
@@ -751,7 +752,7 @@ def main ():
                 OutputFile = os.path.join(DocDir, lang, KitName, ExampleName + '.md')
                 MdFile = open(OutputFile, 'w')
                 MdFile.write('[VTKExamples](/)/[' + lang + '](/' + lang + ')/' + KitName + '/' + ExampleName + '\n\n')
-    
+
                 if os.path.isfile(BaselinePath):
                     ImgUrl = RepoURL + '/blob/master/src/Testing/Baseline/' + lang + '/' + KitName + '/Test' + ExampleName + '.png?raw=true'
                     # href to open image in new tab
@@ -779,12 +780,12 @@ def main ():
                     seeAlso += '\n'
                     MdFile.write(seeAlso)
                     MdFile.write('\n')
-    
+
                 # Add email contact for questions
                 question = '\n!!! question\n    If you have a simple question about this example contact us at <a href=mailto:VTKExamplesProject@gmail.com?subject=' + ExampleName + langExt + '&body=' + 'https://lorensen.github.io/VTKExamples/site/' + lang + '/' + KitName + '/' + ExampleName + '>VTKExamplesProject</a>\n    If your question is more complex and may require extended discussion, please use the [VTK Discourse Forum](https://discourse.vtk.org/)\n'
                 MdFile.write(question)
                 MdFile.write('\n')
-    
+
                 SrcFileName = os.path.join(RepoDir, lang, KitName, ExampleName + langExt)
                 with open(SrcFileName, 'r') as SrcFile:
                     src = SrcFile.read()
@@ -807,13 +808,13 @@ def main ():
                     javaCount = javaCount + 1
                 MdFile.write(src)
                 MdFile.write('```' + '\n')
-    
+
                 # Store the full file names for the example
                 if ExampleName not in exampleToFileNames:
                     exampleToFileNames[ExampleName] = set()
                 SrcFile = os.path.join(RepoDir, lang, KitName, ExampleName + ExampleExt)
                 exampleToFileNames[ExampleName].add(SrcFile)
-    
+
                 ExtrasPath = os.path.join(RepoDir, lang, KitName, ExampleName + '.extras')
                 ExtraNames = ''
                 if os.path.isfile(ExtrasPath):
@@ -824,7 +825,7 @@ def main ():
                             continue
                         ExtraPath = os.path.join(RepoDir, lang, KitName, line)
                         SrcFile = os.path.join(RepoDir, lang, KitName, line)
-    
+
                         exampleToFileNames[ExampleName].add(SrcFile)
                         ExtraFile = open(ExtraPath, 'r')
                         extraCode = ExtraFile.read()
@@ -874,7 +875,7 @@ def main ():
                     MdFile.write(cmake)
                 MdFile.close()
                 codeToPage[ExampleName + langExt] = '/' + lang + '/' + KitName + '/' + ExampleName
-    
+
     # Generate an html page that links each example code file to its Wiki Example page
     indexFile = open(os.path.join(DocDir, 'ExampleCodeToWikiPage.html'), 'w')
     indexFile.write('Navigate to the page that contains the source code of an example<br>')
@@ -882,13 +883,14 @@ def main ():
     sortedByCode = sorted(codeToPage.items())
     for item in sortedByCode:
         indexFile.write("<A HREF=" + RepoURL + "/wikis" + re.sub(" ", "_", item[1]) + ">" + item[0] + "</A>")
-        indexFile.write("<A HREF=" + RepoURL + "/blob/master" + re.sub(" ", "_", item[1]) + ".md" + ">" + "(md)" + "</A>")
+        indexFile.write(
+            "<A HREF=" + RepoURL + "/blob/master" + re.sub(" ", "_", item[1]) + ".md" + ">" + "(md)" + "</A>")
         indexFile.write("<br>\n")
     indexFile.close()
-    
+
     # Create tarballs for each example
     tmpDir = tempfile.mkdtemp(prefix='VTKTarballs') + '/'
-    
+
     # Create the Tarballs directory in the source tree if not present
     # If it does not exist, assume the tarball repo has not been cloned
     # and we need to ignore tar files
@@ -897,7 +899,7 @@ def main ():
         ignoreFile = open('src/Tarballs/.gitignore', 'w')
         ignoreFile.write('*,tar\n')
         ignoreFile.close()
-    
+
     # Create tarballs
     # For each example page, create a directory and copy that example's files
     # into the directory
@@ -912,7 +914,7 @@ def main ():
         # codeFileName = srcDir + '/' + example + '.cxx'
         if not os.path.exists(srcDir):
             os.makedirs(srcDir)
-    
+
             # An example may have multiple source files
             for exampleFileName in exampleToFileNames[example]:
                 # Get the file name
@@ -920,7 +922,7 @@ def main ():
                 # Copy the code for the example
                 shutil.copy(exampleFileName, tarFileName)
                 os.utime(tarFileName, (refMtime, refMtime))
-    
+
         # Some examples do not have a CMakeLists.txt file
         if example in exampleToCMake:
             os.makedirs(srcDir + '/build')
@@ -929,31 +931,31 @@ def main ():
             cmakeFile.write(exampleToCMake[example][0])
             cmakeFile.close()
             os.utime(cmakeFileName, (refMtime, refMtime))
-    
+
         # Set the mtimes for the directories containing the example
         # Since the mtime is stored in the tar header for each file and directory,
         # we need a consistent time so that a tar of an unchanged example will be equal
         # to the one in the repo
         os.utime(srcDir, (refMtime, refMtime))
         os.utime(srcDir + '/build', (refMtime, refMtime))
-    
+
         # Now create the tar file for the example
         # The tarballs are stored in the source tree
         tar = tarfile.open('src/Tarballs/' + example + '.tar', 'w')
         tar.add(srcDir, arcname=example)
         tar.close()
-    
+
     os.utime(tmpDir, (0, refMtime))
     # Cleanup the temporary directories
     shutil.rmtree(tmpDir)
-    
+
     # Update the tinyurl cache file if necessary
     if cacheMisses > 0:
         cf = open(CacheFile, 'w')
         for key in CacheDict:
             cf.write(key + ' ' + CacheDict[key] + '\n')
         cf.close()
-    
+
     # Rewrite the components cache file if necessary
     if componentsCacheMisses > 0:
         cf = open(ComponentsCacheFile, 'w')
@@ -962,7 +964,7 @@ def main ():
                 # add the vtk prefix to the component to support older versions of vtk
                 cf.write(key + ' ' + contents + '\n')
         cf.close()
-    
+
     # Report stats
     stats = list()
     stats.append('ScrapeRepo Summary')
@@ -978,6 +980,7 @@ def main ():
     stats.append('    Components Cache hits: ' + str(componentsCacheHits))
     stats.append('    Components Cache misses: ' + str(componentsCacheMisses))
     print('\n'.join(stats))
+
 
 if __name__ == '__main__':
     main()
