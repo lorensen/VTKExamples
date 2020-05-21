@@ -120,13 +120,13 @@ def main():
     rnge[2] = bounds[5] - bounds[4]
     print("range: ", ', '.join(["{0:0.6f}".format(i) for i in rnge]))
     expand = 1.0
-    THICKNESS = rnge[2] * 0.1
+    thickness = rnge[2] * 0.1
     plane = vtk.vtkCubeSource()
     plane.SetCenter((bounds[1] + bounds[0]) / 2.0,
-                    bounds[2] + THICKNESS / 2.0,
+                    bounds[2] - thickness / 2.0,
                     (bounds[5] + bounds[4]) / 2.0)
     plane.SetXLength(bounds[1] - bounds[0] + (rnge[0] * expand))
-    plane.SetYLength(THICKNESS)
+    plane.SetYLength(thickness)
     plane.SetZLength(bounds[5] - bounds[4] + (rnge[2] * expand))
 
     planeMapper = vtk.vtkPolyDataMapper()
