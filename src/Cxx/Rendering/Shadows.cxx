@@ -142,11 +142,14 @@ int main(int argc, char* argv[])
   renderer->GetActiveCamera()->Dolly(2.25);
   renderer->ResetCameraClippingRange();
   renderWindow->Render();
+  renderWindow->SetWindowName("Shadows");
+
 
   interactor->Start();
 
   return EXIT_SUCCESS;
 }
+
 namespace {
 vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName)
 {
