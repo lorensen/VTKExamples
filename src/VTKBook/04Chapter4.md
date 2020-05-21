@@ -735,7 +735,7 @@ Alamitos, CA, 1992.
 R. Haimes and M. Giles. "VISUAL3: Interactive Unsteady Unstructured 3D
 Visualization." AIAA Report No. AIAA-91-0794. January 1991.
 
-<em style="color:green;background-color: white">\[ Wernecke94\]</em>
+<em style="color:green;background-color: white">\[Wernecke94\]</em>
 J. Wernecke. *The Inventor Mentor*. Addison-Wesley Publishing
 Company, ISBN 0-201-62495-8, 1994.
 
