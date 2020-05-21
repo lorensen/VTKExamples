@@ -162,6 +162,7 @@ def main():
     renderer.ResetCameraClippingRange()
     renderWindow.SetWindowName('Shadows')
     renderWindow.Render()
+    renderWindow.SetWindowName('Shadows')
 
     interactor.Start()
 

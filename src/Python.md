@@ -425,6 +425,10 @@ This section includes vtkUnstructuredGrid.
 
 ## Lighting
 
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[ShadowsLightsDemo](/Python/Visualization/ShadowsLightsDemo) | vtkLightActor vtkSequencePass vtkShadowMapBakerPass vtkShadowMapPass | Show lights casting shadows.
+
 ## Texture Mapping
 
 | Example Name | Classes Demonstrated | Description | Image |
