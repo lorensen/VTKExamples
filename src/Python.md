@@ -251,8 +251,6 @@ This section includes examples of manipulating meshes.
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [BoundaryEdges](/Python/Meshes/BoundaryEdges) | vtkFeatureEdges | Find the edges that are used by only one face.
-[CapClip](/Python/Meshes/CapClip) | vtkClipPolyData | Cap a clipped polydata with a polygon.
-[ClipDataSetWithPolyData](/Python/Meshes/ClipDataSetWithPolyData) | vtkClipDataSet vtkImplicitPolyDataDistance vtkRectilinearGrid | clip a vtkRectilinearGrid with arbitrary polydata. In this example, use a vtkConeSource to generate polydata to slice the grid, resulting in an unstructured grid.
 [ClosedSurface](/Python/PolyData/ClosedSurface) | vtkFeatureEdges | Check if a surface is closed.
 [ColoredElevationMap](/Python/Meshes/ColoredElevationMap) | vtkLookupTable | Color a mesh by height.
 [Decimation](/Python/Meshes/Decimation) | vtkDecimatePro | Reduce the number of triangles in a mesh.
@@ -260,8 +258,13 @@ This section includes examples of manipulating meshes.
 [DelaunayMesh](/Python/Modelling/DelaunayMesh) | vtkDelaunay2D vtkMinimalStandardRandomSequence vtkExtractEdges vtkGlyph3D vtkTubeFilter | Two-dimensional Delaunay triangulation of a random set of points. Points and edges are shown highlighted with sphere glyphs and tubes.
 [PointInterpolator](/Python/Meshes/PointInterpolator) | vtkPointInterpolator | Plot a scalar field of points onto a PolyData surface.
 
-
 #### Clipping
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[CapClip](/Python/Meshes/CapClip) | vtkClipPolyData | Cap a clipped polydata with a polygon.
+[ClipDataSetWithPolyData](/Python/Meshes/ClipDataSetWithPolyData) | vtkClipDataSet vtkImplicitPolyDataDistance vtkRectilinearGrid | clip a vtkRectilinearGrid with arbitrary polydata. In this example, use a vtkConeSource to generate polydata to slice the grid, resulting in an unstructured grid.
+[SolidClip](/Python/Meshes/SolidClip) | vtkClipPolyData | Create a "solid" clip. The "ghost" of the part clipped away is also shown.
 
 ### Working with Structured 3D Data
 

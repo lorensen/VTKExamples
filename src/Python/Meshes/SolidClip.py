@@ -19,6 +19,8 @@ def main():
     clipper = vtk.vtkClipPolyData()
     clipper.SetInputConnection(superquadric_source.GetOutputPort())
     clipper.SetClipFunction(clip_plane)
+    # This will give us the polygonal data that is clipped away
+    clipper.GenerateClippedOutputOn()
 
     # Create a mapper and actor
     superquadric_mapper = vtk.vtkPolyDataMapper()
@@ -40,9 +42,20 @@ def main():
 
     superquadric_actor.SetBackfaceProperty(back_faces)
 
+    # Here we get the the polygonal data that is clipped away
+    clipped_away_mapper = vtk.vtkPolyDataMapper()
+    clipped_away_mapper.SetInputData(clipper.GetClippedOutput())
+    clipped_away_mapper.ScalarVisibilityOff()
+
+    # Let us display it as a faint object
+    clipped_away_actor = vtk.vtkActor()
+    clipped_away_actor.SetMapper(clipped_away_mapper)
+    clipped_away_actor.GetProperty().SetDiffuseColor(colors.GetColor3d("Silver"))
+    clipped_away_actor.GetProperty().SetOpacity(0.1)
+
     # Create a renderer
     renderer = vtk.vtkRenderer()
-    renderer.SetBackground(colors.GetColor3d('Black'))
+    renderer.SetBackground(colors.GetColor3d('SlateGray'))
 
     render_window = vtk.vtkRenderWindow()
 
@@ -53,6 +66,11 @@ def main():
 
     # Add the actor to the renderer
     renderer.AddActor(superquadric_actor)
+    renderer.AddActor(clipped_away_actor)
+    render_window.SetSize(600, 600)
+    renderer.ResetCamera()
+    renderer.GetActiveCamera().Dolly(1.5)
+    renderer.ResetCameraClippingRange()
     render_window.Render()
     render_window.SetWindowName('SolidClip')
 

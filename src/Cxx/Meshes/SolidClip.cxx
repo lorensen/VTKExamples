@@ -1,77 +1,91 @@
 #include <vtkActor.h>
 #include <vtkCamera.h>
+#include <vtkClipPolyData.h>
+#include <vtkNamedColors.h>
+#include <vtkNew.h>
+#include <vtkPlane.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
-#include <vtkRenderer.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkSmartPointer.h>
+#include <vtkRenderer.h>
 #include <vtkSuperquadricSource.h>
-#include <vtkClipPolyData.h>
-#include <vtkPlane.h>
-#include <vtkProperty.h>
 
-int main(int, char *[])
+int main(int, char*[])
 {
+  vtkNew<vtkNamedColors> colors;
+
   // Create a superquadric
-  vtkSmartPointer<vtkSuperquadricSource> superquadricSource = 
-    vtkSmartPointer<vtkSuperquadricSource>::New();
+  vtkNew<vtkSuperquadricSource> superquadricSource;
   superquadricSource->SetPhiRoundness(3.1);
   superquadricSource->SetThetaRoundness(2.2);
 
   // Define a clipping plane
-  vtkSmartPointer<vtkPlane> clipPlane = 
-    vtkSmartPointer<vtkPlane>::New();
+  vtkNew<vtkPlane> clipPlane;
   clipPlane->SetNormal(1.0, -1.0, -1.0);
   clipPlane->SetOrigin(0.0, 0.0, 0.0);
 
   // Clip the source with the plane
-  vtkSmartPointer<vtkClipPolyData> clipper = 
-    vtkSmartPointer<vtkClipPolyData>::New();
+  vtkNew<vtkClipPolyData> clipper;
   clipper->SetInputConnection(superquadricSource->GetOutputPort());
-  clipper->SetClipFunction(clipPlane);  
+  clipper->SetClipFunction(clipPlane);
+  // This will give us the polygonal data that is clipped away
+  clipper->GenerateClippedOutputOn();
 
-  //Create a mapper and actor
-  vtkSmartPointer<vtkPolyDataMapper> superquadricMapper = 
-    vtkSmartPointer<vtkPolyDataMapper>::New();
+  // Create a mapper and actor
+  vtkNew<vtkPolyDataMapper> superquadricMapper;
   superquadricMapper->SetInputConnection(clipper->GetOutputPort());
- 
-  vtkSmartPointer<vtkActor> superquadricActor = 
-    vtkSmartPointer<vtkActor>::New();
+
+  vtkNew<vtkActor> superquadricActor;
   superquadricActor->SetMapper(superquadricMapper);
 
   // Create a property to be used for the back faces. Turn off all
   // shading by specifying 0 weights for specular and diffuse. Max the
   // ambient.
-  vtkSmartPointer<vtkProperty> backFaces =
-    vtkSmartPointer<vtkProperty>::New();
+  vtkNew<vtkProperty> backFaces;
   backFaces->SetSpecular(0.0);
   backFaces->SetDiffuse(0.0);
   backFaces->SetAmbient(1.0);
-  backFaces->SetAmbientColor(1.0000, 0.3882, 0.2784);
+  backFaces->SetAmbientColor(colors->GetColor3d("Tomato").GetData());
 
   superquadricActor->SetBackfaceProperty(backFaces);
- 
-  // Create a renderer
-  vtkSmartPointer<vtkRenderer> renderer = 
-    vtkSmartPointer<vtkRenderer>::New();
 
-  vtkSmartPointer<vtkRenderWindow> renderWindow = 
-    vtkSmartPointer<vtkRenderWindow>::New();
-   renderWindow->SetWindowName("SolidClip");
+  // Here we get the the polygonal data that is clipped away
+  vtkNew<vtkPolyDataMapper> clippedAwayMapper;
+  clippedAwayMapper->SetInputData(clipper->GetClippedOutput());
+  clippedAwayMapper->ScalarVisibilityOff();
+
+  // Let us display it as a faint object
+  vtkNew<vtkActor> clippedAwayActor;
+  clippedAwayActor->SetMapper(clippedAwayMapper);
+  clippedAwayActor->GetProperty()->SetDiffuseColor(
+      colors->GetColor3d("Silver").GetData());
+  clippedAwayActor->GetProperty()->SetOpacity(0.1);
+
+  // Create a renderer
+  vtkNew<vtkRenderer> renderer;
+
+  vtkNew<vtkRenderWindow> renderWindow;
+  renderWindow->SetWindowName("SolidClip");
 
   renderWindow->AddRenderer(renderer);
- 
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = 
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+
+  vtkNew<vtkRenderWindowInteractor> renderWindowInteractor;
   renderWindowInteractor->SetRenderWindow(renderWindow);
- 
-  //Add actors to the renderers
+
+  // Add actors to the renderers
   renderer->AddActor(superquadricActor);
+  renderer->AddActor(clippedAwayActor);
+  renderer->SetBackground(colors->GetColor3d("SlateGray").GetData());
+  renderWindow->SetSize(600, 600);
+  renderer->ResetCamera();
+  renderer->GetActiveCamera()->Dolly(1.5);
+  renderer->ResetCameraClippingRange();
   renderWindow->Render();
 
-  //Interact with the window
+  // Interact with the window
   renderWindowInteractor->Start();
- 
+
   return EXIT_SUCCESS;
 }
