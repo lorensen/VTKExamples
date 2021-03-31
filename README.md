@@ -1,6 +1,4 @@
-# VTKExamples
-
-## This site is no longer maintained
+# This site is no longer maintained
 
 Please go to [vtk-examples](https://kitware.github.io/vtk-examples/site/).
 
