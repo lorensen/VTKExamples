@@ -1,7 +1,7 @@
 site_name: VTKExamples
 site_url: https://lorensen.github.io/VTKExamples/site/
 repo_name: lorensen/VTKExamples
-repo_url: https://github.com/lorensen/VTKExamples
+#repo_url: https://github.com/lorensen/VTKExamples
 
 theme:
     name: material
